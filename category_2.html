@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διαχείριση «Δύσκολων» Συμπεριφορών Μαθητών/τριών</title>
+<style>
+  :root{ --bg:#072a2a; --panel:#0b3b3b; --card:#0e2f2f; --ink:#e5e7eb; --muted:#a1a7b5; --border:#114e4e; --accent:#2dd4bf; --accent2:#38bdf8; --good:#22c55e; --warn:#f59e0b; --danger:#f43f5e }
+  body.light{ --bg:#ffffff; --panel:#f8fafc; --card:#ffffff; --ink:#0b1224; --muted:#475569; --border:#e5e7eb; --accent:#0ea5e9; --accent2:#7c3aed; background:#fff !important }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;display:flex;flex-direction:column;min-height:100vh;background:linear-gradient(135deg,#072a2a 0%,#0b3b3b 60%,#072a2a 100%);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+  header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border);padding:14px 12px}
+  .bar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;max-width:1200px;margin:0 auto}
+  .title{font-weight:800;font-size:clamp(18px,2.6vw,28px)}
+  .sub{color:var(--muted);font-size:14px}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+  button,select,input[type="range"]{background:var(--card);color:var(--ink);border:1px solid var(--border);border-radius:12px;padding:8px 10px;font-size:14px}
+  button:hover,select:hover{border-color:#206060}
+  .grid{flex:1;max-width:1200px;margin:12px auto 0;padding:0 12px 60px;display:grid;gap:12px}
+
+  details{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  body.light details{background:#fff}
+  summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:10px;color:#c7d2fe;font-weight:700;letter-spacing:.2px}
+  body.light summary{color:#1e293b}
+  summary::-webkit-details-marker{display:none}
+  .chev{width:10px;height:10px;border-right:2px solid #8da2fb;border-bottom:2px solid #8da2fb;transform:rotate(-45deg);transition:.2s}
+  body.light .chev{border-color:#64748b}
+  details[open] .chev{transform:rotate(45deg)}
+  .content{padding:0 16px 16px;background:var(--card)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .pill{font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--ink);padding:4px 8px;border-radius:999px}
+  .muted{color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}
+  body.light .card{background:#fff}
+  h3{margin:12px 0 4px}
+  h4{margin:10px 0 6px;color:#a5b4fc}
+  body.light h4{color:#374151}
+  ul{margin:6px 0 0 18px}
+  code.kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;border:1px solid var(--border);background:var(--card);padding:2px 6px;border-radius:6px;color:#a5b4fc}
+  body.light code.kbd{color:#334155}
+  .btn{display:inline-block;text-decoration:none;border:1px solid var(--border);background:var(--card);color:var(--ink);padding:8px 12px;border-radius:12px;cursor:pointer}
+  .btn:hover{border-color:#206060}
+  .launch{margin-left:auto;font-weight:800;border:1px solid var(--border);padding:4px 8px;border-radius:8px;text-decoration:none;color:var(--ink);background:var(--panel)}
+  .launch:hover{border-color:#206060}
+
+  footer{background:var(--panel);color:var(--muted);text-align:center;padding:12px;margin-top:auto}
+
+  @media print{ @page{size:A4;margin:12mm} body{background:#fff;color:#000} header,footer{display:none} details{background:#fff;border-color:#bbb} summary{color:#000} .content{color:#000;background:#fff} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <div class="title">Διαχείριση «Δύσκολων» Συμπεριφορών Μαθητών/τριών</div>
+        <div class="sub">✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨ • <span id="themeLabel">Dark mode</span></div>
+      </div>
+      <div class="controls">
+        <button id="themeToggle" title="Toggle light/dark">Toggle Light/Dark</button>
+        <button id="expandAll">Expand All</button>
+        <button id="collapseAll">Collapse All</button>
+        <label class="muted" for="size">Text size</label>
+        <input id="size" type="range" min="14" max="22" value="16" />
+        <button id="printBtn">Print</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <details open>
+      <summary><span class="chev"></span>Κείμενο Πλαισίωσης</summary>
+      <div class="content">
+        <div class="card">«Πίσω από κάθε συμπεριφορά υπάρχει λόγος — ακόμη κι αν δεν τον βλέπεις. Πρώτα αποκλιμακώνεις, μετά επιλύεις το πρόβλημα. Αν αλλάξεις εσύ, αλλάζει το κλίμα.»</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα B1 — Συν-διαμόρφωση του “Ενήλικου” Λεκτικού</summary>
+      <div class="content">
+        <div class="row">
+          <div class="pill">Στόχος</div>
+          <div>Θέτεις από την πρώτη μέρα <strong>σαφείς και σεβαστικούς κανόνες</strong>.</div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div class="pill">Βήματα</div>
+          <div>Σε ζεύγη, διατυπώνετε εισαγωγικό μήνυμα 1–2 προτάσεων για το «σας αντιμετωπίζω ως ενήλικες» → Μοιράζεστε → Βελτιώνετε για σαφήνεια και σεβασμό. <span class="muted"></span></div>
+        </div>
+        <div class="card">
+          <h4>Πρότυπα Λεκτικά</h4>
+          <p><strong>Μικρότερες/οι έφηβες/οι (11–13):</strong> «Στο μάθημά μας θα σας φέρομαι με σεβασμό — σαν νεαρούς/ές ενήλικες. Όλοι/ες καμιά φορά χάνουμε την εστίαση· αυτό είναι φυσιολογικό. Η ώριμη κίνηση είναι να επιστρέψουμε <em>γρήγορα και ευγενικά</em> για να συνεχίσουμε να μαθαίνουμε μαζί.»</p>
+          <p><strong>Μεγαλύτερες/οι έφηβες/οι (15–18):</strong> «Στο μάθημά μας σας αντιμετωπίζω ως ενήλικες: με εμπιστοσύνη, σεβασμό και υψηλές προσδοκίες. Μπορεί να ξεφύγουμε στιγμιαία· η ώριμη επιλογή είναι <em>reset</em> και προχώρημα. Έτσι κερδίζουμε ελευθερία και μάθηση που σας προετοιμάζει για το επόμενο.»</p>
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="muted">Αντιγραφή προτύπου</span><button class="btn" data-copy="Στο μάθημά μας θα σας φέρομαι με σεβασμό — σαν νεαρούς/ές ενήλικες...">Copy</button></div>
+        </div>
+      </div>
+    </details>
+
+    <details id="b2">
+      <summary><span class="chev"></span>Δραστηριότητα B2 — Χαρτογράφηση Ενσυναίσθησης <a href="https://domvrosepimorfosi.github.io/EmpathyMapping/" target="_blank" rel="noopener" class="launch" id="emapLink">↗ empathy</a><a href="https://domvrosepimorfosi.github.io/tip-iceberg/" target="_blank" rel="noopener" class="launch" id="icebergLink" style="margin-left:8px">↗ iceberg</a></summary>
+      <div class="content">
+        <div class="row">
+          <div class="pill">Στόχος</div>
+          <div>Πριν παρέμβεις, κοιτάς <strong>κάτω από την επιφάνεια</strong>.</div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div class="pill">Υλικό</div>
+          <div>Πίνακας 5 πλαισίων: <em>Σκέφτεται • Νιώθει • Λέει • Κάνει • Χρειάζεται</em>.</div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div class="pill">Βήματα</div>
+          <div>Σενάριο: «Μαθητής/τρια με σκυμμένο κεφάλι αρνείται εργασία.» → Ομάδες συμπληρώνετε πλαίσια→ Κοινή συζήτηση. <span class="muted">Η ενσυναίσθηση προηγείται της παρέμβασης.</span></div>
+        </div>
+        <div class="card">
+          <h4>Mini Empathy-Map (inline)</h4>
+          <div id="emap" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+            <div class="card"><h4>Σκέφτεται</h4><ul id="eTh"></ul></div>
+            <div class="card"><h4>Νιώθει</h4><ul id="eFe"></ul></div>
+            <div class="card"><h4>Λέει</h4><ul id="eSa"></ul></div>
+            <div class="card"><h4>Κάνει</h4><ul id="eDo"></ul></div>
+            <div class="card" style="grid-column:1/-1"><h4>Χρειάζεται</h4><ul id="eNe"></ul></div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Infographic &amp; Άρθρο — Ρίζες της Εξουθένωσης Εκπαιδευτικών</summary>
+      <div class="content">
+        <div class="card">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start">
+            <div>
+              <img src="Roots%20of%20Teacher%20Burnout.png" alt="Infographic: ρίζες της εξουθένωσης εκπαιδευτικών και η μετάβαση από τιμωρία σε ενσυναίσθηση" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border)"/>
+            </div>
+            <div>
+              <h4>Σύνοψη</h4>
+              <p>Η τρέχουσα κόπωση/εξουθένωση πολλών εκπαιδευτικών συνδέεται με ευρύτερη <em>κρίση ψυχικής υγείας</em> των μαθητών/τριών. Αυτό που φαίνεται ως «απείθεια» είναι συχνά <em>δυσρύθμιση</em> του νευρικού συστήματος. Η κλιμάκωση και η τιμωρία εντείνουν τον κύκλο· η σύνδεση και η ρύθμιση τον σπάνε.</p>
+              <ul>
+                <li><strong>Από τον έλεγχο στην περιέργεια:</strong> Τι ανάγκη σηματοδοτεί η συμπεριφορά; (ασφάλεια, προβλεψιμότητα, ανήκειν, ικανότητα)</li>
+                <li><strong>Regulate → Relate → Reason:</strong> πρώτα ηρεμείς/ρυθμίζεις, μετά συνδέεσαι, έπειτα λογικεύεις/λύνεις.</li>
+                <li><strong>Κινήσεις τάξης:</strong> προβλέψιμες ρουτίνες, ήρεμος τόνος, σύντομες επιλογές, μικρά διαλείμματα, «γρήγορες νίκες».</li>
+                <li><strong>Ευημερία προσωπικού:</strong> η μετατόπιση από τιμωρία σε ενσυναίσθηση μειώνει το στρες και βελτιώνει τη μάθηση.</li>
+              </ul>
+              <p><a class="btn" href="https://starr.org/2023/dysregulation-and-behavior-the-roots-of-teacher-burnout/" target="_blank" rel="noopener">Διάβασε το άρθρο ↗</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- UPDATED B3 VERBATIM -->
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα B3 — «Νερό ή Λάδι;» Παιχνίδι Ρόλων</summary>
+      <div class="content">
+        <div class="row">
+          <div class="pill">Στόχος</div>
+          <div>Εξασκείσαι στην <strong>αποκλιμάκωση</strong> συγκρίνοντας γραμμές που «ρίχνουν λάδι στη φωτιά» vs γραμμές που τη σβήνουν.</div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div class="pill">Τρέξιμο</div>
+          <div>A = μαθητής/τρια («Είναι χαζό.»), B = ο/η εκπαιδευτικός → Γύρος 1: Λάδι → Reset → Γύρος 2: Νερό → Αλλάζετε ρόλους. <span class="muted"></span></div>
+        </div>
+        <div class="card">
+          <h4>Τράπεζα Παραδειγμάτων</h4>
+          <details><summary>1) Άρνηση / Αποφυγή Εργασίας</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Αυτό είναι ανόητο».</li>
+              <li><strong>Λάδι:</strong> «Αν δεν σου αρέσει, φύγε».</li>
+              <li><strong>Νερό:</strong> «Ακούγεται απογοητευτικό. Ποια μικρή αλλαγή θα σε βοηθούσε να ξεκινήσεις — ο χρόνος, ένας/μία συνεργάτης/ιδα ή ο αριθμός της ερώτησης;».</li>
+            </ul>
+          </details>
+          <details><summary>2) Κατηγορηματική Άρνηση</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Δεν πρόκειται να το κάνω».</li>
+              <li><strong>Λάδι:</strong> «Θα το κάνεις. Τώρα».</li>
+              <li><strong>Νερό:</strong> «Βοήθησέ με να καταλάβω το εμπόδιο — οι οδηγίες, ο χρόνος ή κάτι άλλο; Να ξεκινήσουμε μαζί την πρώτη ερώτηση ή να πάρεις 2 λεπτά και να προσπαθήσεις;».</li>
+            </ul>
+          </details>
+          <details><summary>3) Με το Κεφάλι Κάτω, Σιωπή</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (με το κεφάλι στο θρανίο).</li>
+              <li><strong>Λάδι:</strong> «Σήκω. Τώρα».</li>
+              <li><strong>Νερό:</strong> (χαμηλόφωνα) «Φαίνεσαι εξαντλημένος/η. Να κάνουμε την πρώτη μαζί ή μια παύση 2 λεπτών και μετά να προσπαθήσεις;».</li>
+            </ul>
+          </details>
+          <details><summary>4) Εμφανές Κινητό</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (κινητό στο θρανίο) «Απλώς ελέγχω κάτι».</li>
+              <li><strong>Λάδι:</strong> «Δώσε μου το κινητό».</li>
+              <li><strong>Νερό:</strong> «Τα κινητά πρέπει να είναι απενεργοποιημένα και εκτός οπτικού πεδίου βάσει νόμου και κανονισμού του σχολείου. Βάλ' το στην τσάντα σου τώρα. Αν εμφανιστεί ξανά, θα ακολουθήσουμε τη διαδικασία παράδοσης».</li>
+            </ul>
+          </details>
+          <details><summary>5) «Είναι Επείγον»</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Είναι σημαντικό».</li>
+              <li><strong>Λάδι:</strong> «Τίποτα δεν είναι πιο σημαντικό από το μάθημά μου».</li>
+              <li><strong>Νερό:</strong> «Σε ακούω. Ο νόμος και οι σχολικοί κανόνες απαιτούν τα κινητά να είναι απενεργοποιημένα και φυλαγμένα. Βάλ' το στην τσάντα σου τώρα — μίλησέ μου μετά το μάθημα για να εμπλέξουμε τη διεύθυνση αν χρειαστεί».</li>
+            </ul>
+          </details>
+          <details><summary>6) Ειδοποιήσεις Έξυπνου Ρολογιού (Smartwatch)</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (αγγίζει το ρολόι) «Είναι απλώς το ρολόι μου».</li>
+              <li><strong>Λάδι:</strong> «Βγάλ' το τώρα».</li>
+              <li><strong>Νερό:</strong> «Οι συσκευές πρέπει να είναι αθόρυβες και εκτός οπτικού πεδίου. Σύρε το μανίκι σου από πάνω ή τοποθέτησέ το στην τσάντα σου. Ευχαριστώ».</li>
+            </ul>
+          </details>
+          <details><summary>7) Βιντεοσκόπηση / Ηχογράφηση</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (βιντεοσκοπεί).</li>
+              <li><strong>Λάδι:</strong> «Μου κάνεις πλάκα; Διέγραψέ το τώρα».</li>
+              <li><strong>Νερό:</strong> «Η βιντεοσκόπηση δεν επιτρέπεται. Σταμάτα, απομάκρυνε τη συσκευή. Θα καταγράψουμε το περιστατικό στη διεύθυνση μετά το μάθημα».</li>
+            </ul>
+          </details>
+          <details><summary>8) Ψιθυροκουβέντα</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (ψιθυρίζει/γελάει).</li>
+              <li><strong>Λάδι:</strong> «Σταμάτα να μιλάς ή βγες έξω».</li>
+              <li><strong>Νερό:</strong> (κοντά, με χαμηλή φωνή) «Μείνε ήσυχος/η για 2 λεπτά — μετά θα είσαι ο πρώτος / η πρώτη που θα μιλήσει. Εντάξει;».</li>
+            </ul>
+          </details>
+          <details><summary>9) «Συζητάμε για την Εργασία!»</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Συζητάμε για την εργασία!».</li>
+              <li><strong>Λάδι:</strong> «Όχι, δεν το κάνετε».</li>
+              <li><strong>Νερό:</strong> «Ωραία — γράψτε μια πρόταση στο χαρτί για να τη δω. Θα ελέγξω σε 60 δευτερόλεπτα».</li>
+            </ul>
+          </details>
+          <details><summary>10) Αντιλογία / Ανυπακοή</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Δεν μπορείς να με αναγκάσεις».</li>
+              <li><strong>Λάδι:</strong> «Για να δούμε».</li>
+              <li><strong>Νερό:</strong> «Δεν θέλεις να το κάνεις. Δύο τρόποι για να προχωρήσουμε: ξεκίνα για 60 δευτερόλεπτα μαζί μου ή ξεκίνα μόνος/η σου και θα ελέγξω. Ποιος τρόπος θα σε βοηθήσει να τελειώσεις γρηγορότερα;».</li>
+            </ul>
+          </details>
+          <details><summary>11) Στρίψιμο των Ματιών / «Ό,τι να 'ναι»</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Ό,τι να 'ναι».</li>
+              <li><strong>Λάδι:</strong> «Μη μου στρίβεις τα μάτια σου».</li>
+              <li><strong>Νερό:</strong> (αγνοεί το στρίψιμο) «Ξεκίνα το νούμερο 2. Θα επιστρέψω σε 90 δευτερόλεπτα για να δω την πρώτη σου πρόταση».</li>
+            </ul>
+          </details>
+          <details><summary>12) Τελείωσε Νωρίς / Κομπασμός</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Τελείωσα. Πολύ εύκολο».</li>
+              <li><strong>Λάδι:</strong> «Τότε σταμάτα την επίδειξη».</li>
+              <li><strong>Νερό:</strong> «Ωραία — πάρε μια κάρτα πρόκλησης και αναβάθμισε δύο προτάσεις με ισχυρότερα επίθετα».</li>
+            </ul>
+          </details>
+          <details><summary>13) «Έχω Χαθεί»</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Δεν το καταλαβαίνω».</li>
+              <li><strong>Λάδι:</strong> «Το έχουμε ήδη καλύψει αυτό».</li>
+              <li><strong>Νερό:</strong> «Σ' ευχαριστώ που μου το λες. Δείξε μου το ακριβές σημείο — ας κάνουμε ένα παράδειγμα μόνο για αυτό το κομμάτι».</li>
+            </ul>
+          </details>
+          <details><summary>14) Δεν Συμμετέχει στην Ομάδα</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Δεν θέλω να δουλέψω μαζί τους».</li>
+              <li><strong>Λάδι:</strong> «Κρίμα».</li>
+              <li><strong>Νερό:</strong> «Διάλεξε έναν ρόλο που σου ταιριάζει: χρονομέτρης, γραμματέας ή συντονιστής/ίστρια. Ποιος λειτουργεί για σένα σήμερα;».</li>
+            </ul>
+          </details>
+          <details><summary>15) «Δεν με Ακούνε»</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Κανείς δεν ακούει».</li>
+              <li><strong>Λάδι:</strong> «Τότε μίλα πιο δυνατά».</li>
+              <li><strong>Νερό:</strong> «Θα μιλήσουμε με τη σειρά: 20 δευτερόλεπτα ο καθένας / η καθεμία. Εσύ είσαι δεύτερος/η — θα το χρονομετρήσω».</li>
+            </ul>
+          </details>
+          <details><summary>16) Καθυστέρηση στην Τάξη</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Είναι μόνο 10 λεπτά».</li>
+              <li><strong>Λάδι:</strong> «Απαράδεκτο».</li>
+              <li><strong>Νερό:</strong> «Πάρε την εισαγωγική άσκηση από το βοηθητικό τραπέζι. Θα ελέγξω μόλις γράψεις την πρώτη γραμμή».</li>
+            </ul>
+          </details>
+          <details><summary>17) Έλλειψη Υλικών</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Ξέχασα το βιβλίο μου».</li>
+              <li><strong>Λάδι:</strong> «Φυσικά και το ξέχασες».</li>
+              <li><strong>Νερό:</strong> «Πάρε ένα εφεδρικό από την έδρα.»</li>
+            </ul>
+          </details>
+          <details><summary>18) Ακατάλληλο Αστείο</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (κάνει ένα αστείο κατά τη διάρκεια των οδηγιών).</li>
+              <li><strong>Λάδι:</strong> «Ωρίμασε».</li>
+              <li><strong>Νερό:</strong> (με μισό χαμόγελο) «Άφησέ το για μετά. Έχεις 20 δευτερόλεπτα στο τέλος για να μοιραστείς την αστεία εκδοχή».</li>
+            </ul>
+          </details>
+          <details><summary>19) Απόπειρα Αναζήτησης στο Κινητό (Απαγόρευση)</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> (προσπαθεί κρυφά να βρει απαντήσεις στο κινητό).</li>
+              <li><strong>Λάδι:</strong> «Αντιγράφεις!».</li>
+              <li><strong>Νερό:</strong> «Τα κινητά απαγορεύονται — απομάκρυνέ το τώρα. Θέλω τη δική σου σκέψη στην ερώτηση 3 — εξήγησέ μου την προσέγγισή σου».</li>
+            </ul>
+          </details>
+          <details><summary>20) «Κόλλημα» στην Παρουσίαση / Άγχος</summary>
+            <ul>
+              <li><strong>Μαθητής/Μαθήτρια:</strong> «Δεν μπορώ να το κάνω αυτό».</li>
+              <li><strong>Λάδι:</strong> «Ναι, μπορείς. Ξεκίνα».</li>
+              <li><strong>Νερό:</strong> «Εντάξει — ξεκίνα τις δύο πρώτες γραμμές από τη θέση σου και μετά σήκω για την τελευταία. Κάνε μου νόημα όταν είσαι έτοιμος/η, θα σε χρονομετρήσω».</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα B4 — Flip the Script</summary>
+      <div class="content">
+        <div class="row"><div class="pill">Στόχος</div><div>Μετατρέπεις <strong>εντολές</strong> σε <strong>ερωτήσεις</strong> ώστε να καλέσεις συνεργασία και να διατηρήσεις το «κύρος προσώπου».</div></div>
+        <div class="card">
+          <h4>Μετατροπές μαζί</h4>
+          <ul>
+            <li>«Βάλε το κινητό μέσα.» → «Πού πρέπει να είναι το κινητό σου για να συγκεντρωθείς;»</li>
+            <li>«Ξεκίνα την άσκηση.» → «Με ποια ερώτηση θα ξεκινήσεις;»</li>
+            <li>«Σταμάτα να μιλάς.» → «Πού θέλεις να καθίσεις για να το ολοκληρώσεις;»</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details id="b5">
+      <summary><span class="chev"></span>Δραστηριότητα B5 — Μεταγνωστικές Ερωτήσεις</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Πότε να τις χρησιμοποιείτε</h4>
+          <p>Αφού παραβιαστεί ένας κανόνας/όριο <strong>και</strong> ο/η μαθητής/τρια είναι αρκετά ήρεμος/η για να σκεφτεί.</p>
+          <h4>Πώς να τις χρησιμοποιείτε</h4>
+          <ul>
+            <li>Υποβάλετε <strong>3–5 ερωτήσεις</strong> το πολύ.</li>
+            <li><strong>Μιλήστε αργά</strong> και δώστε χρόνο για απάντηση.</li>
+            <li><strong>Γράψτε</strong> το τελικό πλάνο.</li>
+          </ul>
+          <div style="margin-top:8px"><button id="b5ToggleAll" class="btn">Άνοιγμα/Κλείσιμο όλων</button></div>
+        </div>
+        <div class="card">
+          <details class="metaCat"><summary><strong>Α) Οι 5 βασικές</strong></summary>
+            <ul>
+              <li>Γιατί πίστεψες ότι αυτό ήταν ΟΚ;</li>
+              <li>Ποιος από τους ανθρώπους σου πιστεύει ότι αυτό είναι σωστό;</li>
+              <li>Πού το έμαθες αυτό;</li>
+              <li>Πώς μπορείς να βοηθήσεις να διορθωθεί αυτό τώρα;</li>
+              <li>Τι θα κάνεις την επόμενη φορά;</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Β) Παύση &amp; Συναισθήματα</strong></summary>
+            <ul>
+              <li>Είσαι έτοιμος/η να σκεφτείς ή χρειάζεσαι 1 λεπτό;</li>
+              <li>Τι συνέβη ακριβώς πριν από αυτό;</li>
+              <li>Πώς ένιωσες; (θυμωμένος/η / λυπημένος/η / βαριεστημένος/η / αγχωμένος/η / ανήσυχος/η / κουρασμένος/η)</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Γ) Ανάληψη ευθύνης</strong></summary>
+            <ul>
+              <li>Ποιο κομμάτι είναι δική σου ευθύνη;</li>
+              <li>Ποια ήταν η επιλογή σου εκείνη τη στιγμή;</li>
+              <li>Αν βλέπαμε μια επανάληψη, πού θα έπρεπε να κάνεις παύση;</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Δ) Κανόνες &amp; Αξίες</strong></summary>
+            <ul>
+              <li>Ποιον κανόνα της τάξης παραβίασε αυτό;</li>
+              <li>Αυτό ταιριάζει με το άτομο που θέλεις να είσαι στην τάξη;</li>
+              <li>Πώς φαίνεται ο «σεβασμός» εδώ; (ένα παράδειγμα)</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Ε) Αντίκτυπος</strong></summary>
+            <ul>
+              <li>Ποιος επηρεάστηκε; Πώς;</li>
+              <li>Τι άλλαξε στην αίθουσα εξαιτίας αυτού;</li>
+              <li>Αν ήσουν στη θέση τους, πώς θα ένιωθες;</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>ΣΤ) Επιλογές</strong></summary>
+            <ul>
+              <li>Πες μου δύο άλλες επιλογές που θα μπορούσες να κάνεις την επόμενη φορά.</li>
+              <li>Τι θα μπορούσες να πεις στον εαυτό σου για να παραμείνεις ήρεμος/η;</li>
+              <li>Τι σε βοηθάει περισσότερο: να αλλάξεις θέση / να ζητήσεις βοήθεια / να πάρεις 1 λεπτό / να ξεκινήσεις με ένα εύκολο βήμα;</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Ζ) Επανόρθωση (σήμερα)</strong></summary>
+            <ul>
+              <li>Ποια είναι μια επανόρθωση που μπορείς να κάνεις σήμερα; (συγγνώμη / βοήθεια / επανακάνιση)</li>
+              <li>Πώς θα ξέρουμε ότι λειτούργησε;</li>
+              <li>Γράψε μία πρόταση που θα πεις/κάνεις.</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Η) Μελλοντικό Πλάνο (Αν–Τότε)</strong></summary>
+            <ul>
+              <li>Αν νιώσω ____ , τότε θα ____ .</li>
+              <li>Την επόμενη φορά που θα παρατηρήσω ____ , το πρώτο μου βήμα είναι ____ .</li>
+              <li>Τι θέλεις να κάνω (ο/η εκπαιδευτικός) για να σε βοηθώ να τηρείς το πλάνο;</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Θ) Γρήγορο κλείσιμο</strong></summary>
+            <ul>
+              <li>Πες ξανά το πλάνο σου.</li>
+              <li>Πότε ελέγχουμε — τέλος μαθήματος ή αύριο;</li>
+              <li>Ευχαριστώ. Επιστρέφουμε στο μάθημα.</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Ι) Δύο υποδειγματικοί διάλογοι</strong></summary>
+            <div class="card">
+              <h4>1) Σχόλιο στο πλάι κατά τη διάρκεια των οδηγιών</h4>
+              <p><strong>Δ:</strong> Είσαι έτοιμος/η να σκεφτείς ή θέλεις 1 λεπτό πρώτα;<br/>
+              <strong>Μ:</strong> Έτοιμος/η.<br/>
+              <strong>Δ:</strong> Ποιον κανόνα παραβίασε αυτό;<br/>
+              <strong>Μ:</strong> Δεν μιλάμε όταν μιλάει ο/η δάσκαλος/α.<br/>
+              <strong>Δ:</strong> Μια επανόρθωση για σήμερα;<br/>
+              <strong>Μ:</strong> Θα ζητήσω συγγνώμη και θα γράψω την ιδέα μου για αργότερα.<br/>
+              <strong>Δ:</strong> Αν βαρεθείς την επόμενη φορά, τι θα κάνεις;<br/>
+              <strong>Μ:</strong> Θα το γράψω και θα περιμένω.<br/>
+              <strong>Δ:</strong> Ωραία. Θα το ελέγξουμε στο τέλος.</p>
+              <h4>2) Δεν έφερε τα υλικά του/της</h4>
+              <p><strong>Δ:</strong> Τι συνέβη πριν από αυτό;<br/>
+              <strong>Μ:</strong> Ξέχασα το βιβλίο μου.<br/>
+              <strong>Δ:</strong> Ποιο κομμάτι είναι δική σου ευθύνη;<br/>
+              <strong>Μ:</strong> Να φέρω το βιβλίο μου.<br/>
+              <strong>Δ:</strong> Μια επανόρθωση τώρα;<br/>
+              <strong>Μ:</strong> Να χρησιμοποιήσω ένα εφεδρικό βιβλίο και να γράψω το όνομά μου σε ένα αυτοκόλλητο σημειωματάριο.<br/>
+              <strong>Δ:</strong> Το πλάνο σου «Αν–Τότε»;<br/>
+              <strong>Μ:</strong> Αν φεύγω από το σπίτι, τότε θα ελέγχω την τσάντα μου για το βιβλίο και το στυλό.<br/>
+              <strong>Δ:</strong> Τέλεια. Θα το ελέγξουμε αύριο το πρωί.</p>
+            </div>
+          </details>
+          <details class="metaCat"><summary><strong>Κ) Μίνι φύλλο εργασίας</strong></summary>
+            <ul>
+              <li>Όνομα / Ημερομηνία: ____________</li>
+              <li>Τι συνέβη (1 πρόταση): ______________________________</li>
+              <li>Συναίσθημα (κύκλωσε): θυμωμένος/η / λυπημένος/η / βαριεστημένος/η / αγχωμένος/η / ανήσυχος/η / κουρασμένος/η / άλλο: ___</li>
+              <li>Ποιος επηρεάστηκε; Πώς; ______________________________</li>
+              <li>Επανόρθωση σήμερα (1 ενέργεια): ______________________________</li>
+              <li>Πλάνο Αν–Τότε: Αν __________, τότε θα __________.</li>
+              <li>Χρόνος ελέγχου: τέλος μαθήματος / αύριο (κύκλωσε)</li>
+            </ul>
+          </details>
+          <details class="metaCat"><summary><strong>Λ) Συμβουλές για τον/τη δάσκαλο/α</strong></summary>
+            <ul>
+              <li>Μιλήστε αργά, μία ερώτηση τη φορά.</li>
+              <li>Ξεκινήστε με ερωτήσεις ναι/όχι + σύντομες απαντήσεις· έπειτα ζητήστε μία πρόταση.</li>
+              <li>Γράψτε τα ίδια τα λόγια του/της μαθητή/τριας στο πλάνο.</li>
+              <li>Κρατήστε τη διαδικασία ιδιωτική όταν είναι δυνατό.</li>
+              <li>Κλείστε με «ευχαριστώ» και έναν σαφή χρόνο ελέγχου.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα B6 — Ο «Κανόνας των 30 Δευτ.»</summary>
+      <div class="content">
+        <div class="row"><div class="pill">Στόχος</div><div>Χτίζεις κουλτούρα ευγένειας.</div></div>
+        <div class="row" style="margin-top:6px"><div class="pill">Κανόνας</div><div>«Αν δεν μπορούν να το αλλάξουν σε 30″, μην το σχολιάζεις.»</div></div>
+        <div class="card">
+          <h4>Ταξινόμηση (παραδείγματα)</h4>
+          <details><summary>Επιτρέπεται να πω</summary><ul>
+            <li>«Ευχαριστώ που μου έδωσες τον λόγο.»</li>
+            <li>«Να σε βοηθήσω σε αυτό το βήμα;»</li>
+            <li>«Μου άρεσε το παράδειγμα για το ταξίδι.»</li>
+          </ul></details>
+          <details><summary>Δεν είναι ΟΚ</summary><ul>
+            <li>«Έχεις σπυράκια.»</li>
+            <li>«Η προφορά σου είναι περίεργη.»</li>
+            <li>«Τα παπούτσια σου είναι άσχημα.»</li>
+          </ul></details>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Γρήγορα Εργαλεία</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Μπαλάκι αφρού για reset:</strong> 3 αναπηδήσεις· ρίχνεις σε έτοιμους/ες μαθητές/τριες.</li>
+            <li><strong>Κάρτα Διαλείμματος:</strong> 2′ ολιγόλεπτο reset για όλη την τάξη· χρονομέτρηση στον πίνακα· όλα σε παύση· επιστροφή έτοιμοι/ες.</li>
+            <li><strong>Στιγμή Παύσης:</strong> Stop → Reset → Address → Ξεκινάμε πάλι.</li>
+            <li><strong>7 λέξεις:</strong> «Χαίρομαι που σε έχω στην τάξη μου.»</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+  </main>
+
+  <footer>✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨</footer>
+
+<script>
+  // Theme toggle with persistence
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const savedTheme = localStorage.getItem('theme2v4') || 'dark';
+  if(savedTheme === 'light'){
+    document.body.classList.add('light');
+    themeLabel.textContent = 'Light mode';
+  }
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('theme2v4', isLight ? 'light' : 'dark');
+    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
+  });
+
+  // Expand/Collapse all
+  const expandAllBtn = document.getElementById('expandAll');
+  const collapseAllBtn = document.getElementById('collapseAll');
+  const sections = [...document.querySelectorAll('main details')];
+  expandAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=true));
+  collapseAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=false));
+
+  // Text size slider
+  const size = document.getElementById('size');
+  size.addEventListener('input', e => { document.documentElement.style.fontSize = e.target.value + 'px'; });
+
+  // Print opens all first
+  const printBtn = document.getElementById('printBtn');
+  function openAll(){ sections.forEach(d=>d.open=true); }
+  printBtn.addEventListener('click',()=>{ openAll(); setTimeout(()=>window.print(), 80); });
+  window.onbeforeprint = openAll;
+
+  // Empathy links inside summary: prevent details toggle and open reliably
+  const emapLink = document.getElementById('emapLink');
+  if (emapLink) {
+    emapLink.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+    });
+  }
+  const icebergLink = document.getElementById('icebergLink');
+  if (icebergLink) {
+    icebergLink.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+    });
+  }
+
+  // Inline empathy map data (Greek)
+  const EDATA = {
+    Thinks:["Δεν το καταλαβαίνω.","Θα φαίνομαι χαζός/ή αν προσπαθήσω.","Τι νόημα έχει;"],
+    Feels:["Κούραση, ντροπή, υπερένταση.","Απόγνωση."],
+    Says:["Βαριέμαι.","Δεν το κάνω.","(Σιωπή)"],
+    Does:["Κρύβει το πρόσωπο, αποφεύγει βλέμμα.","Σηκώνει ώμους."],
+    Needs:["Είσοδο χαμηλού ρίσκου (μία εύκολη ερώτηση).","Διαβεβαίωση ότι το λάθος επιτρέπεται.","Ίσως μικρό διάλειμμα."]
+  };
+  const fill = (id,arr)=>{ const ul=document.getElementById(id); if(!ul) return; ul.innerHTML=''; arr.forEach(x=>{const li=document.createElement('li'); li.textContent=x; ul.appendChild(li);}); };
+  fill('eTh',EDATA.Thinks); fill('eFe',EDATA.Feels); fill('eSa',EDATA.Says); fill('eDo',EDATA.Does); fill('eNe',EDATA.Needs);
+
+  // Ensure B5 is open on load & toggle-all inside B5
+  const b5 = document.getElementById('b5');
+  if (b5) { b5.open = true; }
+  const b5ToggleAll = document.getElementById('b5ToggleAll');
+  if (b5ToggleAll) {
+    b5ToggleAll.addEventListener('click', () => {
+      const cats = b5.querySelectorAll('details.metaCat');
+      const anyClosed = Array.from(cats).some(d => !d.open);
+      cats.forEach(d => d.open = anyClosed);
+    });
+  }
+</script>
+</body>
+</html>

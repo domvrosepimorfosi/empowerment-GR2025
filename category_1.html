@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Οργάνωση Διδασκαλίας & Σχεδιασμός Μαθήματος — Κινητοποίηση και Ποικιλία στη Διδακτική Αρχιτεκτονική</title>
+<style>
+  :root{ --bg:#072a2a; --panel:#0b3b3b; --card:#0e2f2f; --ink:#e5e7eb; --muted:#a1a7b5; --border:#114e4e; --accent:#2dd4bf; --accent2:#38bdf8 }
+  body.light{ --bg:#ffffff; --panel:#f8fafc; --card:#ffffff; --ink:#0b1224; --muted:#475569; --border:#e5e7eb; --accent:#0ea5e9; --accent2:#7c3aed; background:#fff !important }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;display:flex;flex-direction:column;min-height:100vh;background:linear-gradient(135deg,#072a2a 0%,#0b3b3b 60%,#072a2a 100%);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+  header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border);padding:14px 12px}
+  .bar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;max-width:1200px;margin:0 auto}
+  .title{font-weight:800;font-size:clamp(18px,2.6vw,28px)}
+  .sub{color:var(--muted);font-size:14px}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+  button,input[type="range"]{background:var(--card);color:var(--ink);border:1px solid var(--border);border-radius:12px;padding:8px 10px;font-size:14px}
+  .grid{flex:1;max-width:1200px;margin:12px auto 0;padding:0 12px 40px;display:grid;gap:12px}
+  details{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  body.light details{background:#fff}
+  summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:10px;color:#c7d2fe;font-weight:700}
+  body.light summary{color:#1e293b}
+  summary::-webkit-details-marker{display:none}
+  .chev{width:10px;height:10px;border-right:2px solid #8da2fb;border-bottom:2px solid #8da2fb;transform:rotate(-45deg);transition:.2s}
+  body.light .chev{border-color:#64748b}
+  details[open] .chev{transform:rotate(45deg)}
+  .content{padding:0 16px 16px;background:var(--card);border-radius:0 0 14px 14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}
+  body.light .card{background:#fff}
+  h4{margin:10px 0 6px;color:#a5b4fc}
+  body.light h4{color:#374151}
+  ul{margin:6px 0 0 18px}
+  .pill{font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--ink);padding:2px 8px;border-radius:999px}
+  /* Tabs + curves */
+  .tabbar{display:flex;gap:8px;align-items:center;margin:8px 0 12px}
+  .tabbtn{background:var(--panel);border:1px solid var(--border);color:var(--ink);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+  .tabpanel{display:none;border:1px solid var(--border);background:var(--card);border-radius:12px;padding:12px}
+  .tabpanel.show{display:block}
+  .curveBody{padding:10px 12px}
+  footer{background:var(--panel);color:var(--muted);text-align:center;padding:8px 12px;margin-top:auto}
+  @media print{ @page{size:A4;margin:12mm} body{background:#fff;color:#000} header,footer{display:none} details{background:#fff;border-color:#bbb} summary{color:#000} .content{color:#000;background:#fff} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <div class="title">Οργάνωση Διδασκαλίας & Σχεδιασμός Μαθήματος — Κινητοποίηση και Ποικιλία στη Διδακτική Αρχιτεκτονική</div>
+        <div class="sub">Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος , All Rights Reserved • <span id="themeLabel">Dark mode</span></div>
+      </div>
+      <div class="controls">
+        <button id="themeToggle" title="Toggle light/dark">Toggle Light/Dark</button>
+        <button id="expandAll">Expand All</button>
+        <button id="collapseAll">Collapse All</button>
+        <label class="muted" for="size">Text size</label>
+        <input id="size" type="range" min="14" max="22" value="16" />
+        <button id="printBtn">Print</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <details open>
+      <summary><span class="chev"></span>Εισαγωγικό Πλαίσιο</summary>
+      <div class="content">
+        <div class="card">Ως ο/η εκπαιδευτικός, συχνά δεν θα βλέπετε άμεσα τη θεσμική αναγνώριση της συμβολής σας· παρ’ όλα αυτά, η σταθερή, καθημερινή σας πράξη διαμορφώνει σε βάθος τη μαθησιακή πορεία και την ψυχοκοινωνική ανάπτυξη των μαθητών/τριών σας. Δεν υπάρχει μία «καθολικά βέλτιστη» μέθοδος· αυτό που καθορίζει την αποτελεσματικότητα της διδασκαλίας σας είναι ο βαθμός στον οποίο εξασφαλίζετε για κάθε μαθητή/τρια ένα περιβάλλον αποδοχής, ασφάλειας και προσωπικής αξίας.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A1 — Δίλεκτη Συναισθηματική Επισκόπηση</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Σκοπός:</strong> Να συνδιαμορφώσετε θετικό μαθησιακό κλίμα μέσω μιας σύντομης χαρτογράφησης των συναισθημάτων σας.</li>
+            <li><strong>Οδηγία:</strong> Παρουσιάζεστε με το ονοματεπώνυμό σας και διατυπώνετε δύο λέξεις‑δείκτες που αποτυπώνουν την τρέχουσα συναισθηματική σας κατάσταση ως ο/η εκπαιδευτικός.</li>
+            <li><strong>Τεκμηρίωση:</strong> Ενεργοποιείτε ενσυναίσθηση, κοινωνικοσυναισθηματική επίγνωση και συνοχή ομάδας.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A2 — Η Σιωπηρή Επίδραση</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Οδηγία:</strong> Κλείνετε τα μάτια για 1′ και ανακαλείτε έναν/μία εκπαιδευτικό που άσκησε ήπια αλλά καθοριστική επίδραση σε εσάς· εστιάζετε στο συναίσθημα που σας προκάλεσε.</li>
+            <li><strong>Στόχευση:</strong> Χρησιμοποιείτε αυτό το βίωμα ως αγκυροβόλιο νοήματος για όσα θα συν‑εξετάσουμε στη συνέχεια.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A3 — Μία Λέξη, Ένα Περιστατικό</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Ενέργεια:</strong> Καταγράφετε μία λέξη που συνοψίζει μια πρόσφατη διδακτική σας επιτυχία (μικρής ή μεγαλύτερης κλίμακας).</li>
+            <li><strong>Σκοπός:</strong> Ενισχύετε τον αναστοχασμό σας και αναδεικνύετε αποτελεσματικές πρακτικές (evidence‑informed micro‑wins).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A4 — Ο/Η Μαθητής/τρια που Έχω</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Εργασία:</strong> Επιλέγετε έναν/μία τρέχον/ουσα μαθητή/τρια (χωρίς ονομαστική αναφορά). Καταγράφετε μία ισχυρή πλευρά (asset) και μία πρόκληση (need).</li>
+            <li><strong>Συνεργασία:</strong> Σε ζεύγη, διαθέτετε 3′ για να σχεδιάσετε μια στρατηγική που αξιοποιεί το πλεονέκτημα προς αντιμετώπιση της πρόκλησης (διαφοροποίηση, καθολικός σχεδιασμός μάθησης, στοχευμένη υποστήριξη).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Ενότητα 2 — Οργάνωση Μαθήματος & Διδακτικός Σχεδιασμός</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Κείμενο Πλαισίωσης</h4>
+          <ul>
+            <li><strong>Θεώρηση:</strong> Αντιμετωπίζετε το σχέδιο μαθήματός σας ως επιχειρησιακό πλάνο με σαφώς ορισμένα μαθησιακά αποτελέσματα και ευέλικτη υλοποίηση (goal clarity, flexible delivery).</li>
+            <li><strong>Μεταφορά ρόλου:</strong> «Συνθέτης–Μαέστρος/ισσα»: αφιερώνετε δημιουργική προετοιμασία εκ των προτέρων· κατά την εφαρμογή, διευθύνετε και προσαρμόζετε σε πραγματικό χρόνο (responsive orchestration).</li>
+            <li><strong>Πραγματικότητα τάξης:</strong> Αναμένετε γνωστική τριβή και παραγωγική αβεβαιότητα· διαχειρίζεστε παιδαγωγικά την «ωφέλιμη δυσφορία» για βαθύτερη κατανόηση.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- A5 with interactive Pivot Guide -->
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A5 — Σενάριο Απροόπτου — «Curveball/Spanner in the works»</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Μαθησιακός στόχος:</strong> Να εξασκηθείτε στα περιγραφικά επίθετα σε αυθεντικό πλαίσιο χρήσης.</li>
+            <li><strong>Πρόκληση:</strong> Θα λάβετε έναν αιφνίδιο περιορισμό/αλλαγή (curveball) που απαιτεί μικρο‑ανασχεδιασμό.</li>
+            <li><strong>Χρόνος:</strong> Διαθέτετε 3′ για ταχεία αναπροσαρμογή (rapid replanning) του πλάνου σας.</li>
+            <li><strong>Κοινή θέαση:</strong> Μοιράζεστε 1–2 στρατηγικές εναλλακτικές(pivots) και τεκμηριώνετε τις επιλογές σας.</li>
+          </ul>
+
+          <div class="tabbar">
+            <button id="pivotTabBtn" class="tabbtn" aria-controls="pivotPanel" aria-expanded="false">Οδηγός Εναλλακτικών</button>
+            <button id="pivotToggleAll" class="tabbtn" aria-expanded="false">Άνοιγμα/Κλείσιμο όλων</button>
+          </div>
+
+          <div id="pivotPanel" class="tabpanel" tabindex="-1">
+            <h4>Σενάριο Μαθήματος EFL (Επίπεδο B1, 30′)</h4>
+            <p><strong>Θέμα:</strong> Περιγραφικά επίθετα για τόπους και αντικείμενα.<br/>
+            <strong>Στόχος:</strong> στο τέλος, θα μπορείτε να παράγετε περιγραφικές προτάσεις με 2–3 επίθετα αξιοποιώντας και ψηφιακά εργαλεία συνεργασίας.</p>
+
+            <h5>Δομή Μαθήματος</h5>
+            <p><strong>1) Ενεργοποίηση – Warm-up (5′)</strong><br/>
+            <strong>Εργαλείο:</strong> Padlet / «Softboard».<br/>
+            <strong>Τι κάνετε:</strong> Γράφετε ένα επίθετο που περιγράφει το Σαββατοκύριακό σας.<br/>
+            <strong>Ρόλος ο/η διδ.:</strong> Ομαδοποιείτε απαντήσεις και συνοψίζετε: «Έχουμε ήδη πολλά επίθετα—σήμερα θα τα αξιοποιήσουμε για πιο ζωντανές περιγραφές».</p>
+
+            <p><strong>2) Παρουσίαση (5′)</strong><br/>
+            <strong>Εργαλείο:</strong> Google Slides / Canva.<br/>
+            <strong>Εικόνες:</strong> πολυσύχναστος δρόμος, ήρεμη παραλία, παλιό κάστρο.<br/>
+            <strong>Τι κάνετε:</strong> Παράγετε επίθετα με τους/τις μαθητές/τριες μέσω Padlet και προσθέτετε 2–3 πιο προχωρημένα για εμπλουτισμό.</p>
+
+            <p><strong>3) Καθοδηγούμενη Πρακτική (10′)</strong><br/>
+            <strong>Εργαλείο:</strong> Στήλες Padlet.<br/>
+            <strong>Τι κάνετε:</strong> Σε ζεύγη, γράφετε 2 προτάσεις στη σωστή στήλη (π.χ. «Το κάστρο είναι αρχαίο και μυστηριώδες.»).<br/>
+            <strong>Ρόλος ο/η διδ.:</strong> Επισημαίνετε, διορθώνετε, δίνετε feedback.<br/>
+            <strong>Έλεγχος κατανόησης:</strong> Σχόλιο σε ανάρτηση άλλου/ης με ισχυρότερο επίθετο.</p>
+
+            <p><strong>4) Ανεξάρτητη Πρακτική (7′)</strong><br/>
+            <strong>Εργαλείο:</strong> Quizlet Live / Blooket.<br/>
+            <strong>Τι κάνετε:</strong> Ταχεία αντιστοίχιση επιθέτων με ορισμούς.<br/>
+            <strong>Επέκταση:</strong> Εμπλουτίζετε πρόταση στο Padlet με επίθετο από το Quizlet.</p>
+
+            <p><strong>5) Αναστοχασμός & Κλείσιμο (3′)</strong><br/>
+            <strong>Εργαλείο:</strong> Padlet «Exit Ticket».<br/>
+            <strong>Τι κάνετε:</strong> Γράφετε ένα νέο επίθετο που θα χρησιμοποιήσετε στο επόμενο γραπτό σας.<br/>
+            <strong>Σύνοψη ο/η διδ.:</strong> «Χρησιμοποιείτε επίθετα για να ζωντανεύετε τις περιγραφές».</p>
+
+            <h5>Τεχνικά Ζητήματα</h5>
+            <details class="curve"><summary><strong>1) Πέφτει το Wi‑Fi</strong></summary>
+              <div class="curveBody"><p><strong>Plan A:</strong> Padlet, Slides, Quizlet.</p>
+              <p><strong>Plan B:</strong> Χαρτάκια στον τοίχο, σκίτσα στον πίνακα, εκτυπώσεις. Ομαδοποιείτε επίθετα στον τοίχο ανά κατηγορία.</p>
+              <p><strong>Τι λέτε:</strong> «Το Wi‑Fi έχει θέμα… κολλήστε χαρτάκια κάτω από την εικόνα.»</p></div>
+            </details>
+            <details class="curve"><summary><strong>2) Χαλάει ο προτζέκτορας</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Εκτυπώσεις σε ομάδες ή λεκτική απεικόνιση: «Φανταστείτε κάστρο σε γκρεμό στο ηλιοβασίλεμα—δώστε τρία επίθετα.»</p>
+              <p><strong>Τι λέτε:</strong> «Χωρίς εικόνες, φτιάχνουμε εικόνες με λέξεις…»</p></div>
+            </details>
+            <details class="curve"><summary><strong>3) Κολλάει το Padlet</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Κοινόχρηστο Google Doc ή χαρτί· καταγραφή στον πίνακα σε στήλες.</p>
+              <p><strong>Τι λέτε:</strong> «Το Padlet δεν συνεργάζεται… γράψτε 2 προτάσεις με επίθετα, τις συγκεντρώνω και τις ομαδοποιώ τώρα.»</p></div>
+            </details>
+            <details class="curve"><summary><strong>4) Crash στο Quizlet Live</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> «Σκάλα συνωνύμων» προφορικά ή έντυπο matching.</p>
+              <p><strong>Τι λέτε:</strong> «Το Quizlet είναι εκτός… ξεκινάμε από happy—joyful—ecstatic…»</p></div>
+            </details>
+
+            <h5>Θέματα Τάξης / Οργάνωσης</h5>
+            <details class="curve"><summary><strong>5) Μισοί/ές τελειώνουν γρήγορα</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Αναβάθμιση πρότασης με πιο ακριβές επίθετο ή 2 peer comments.</p>
+              <p><strong>Τι λέτε:</strong> «Αν τελειώσατε, προσθέστε ένα πιο προχωρημένο επίθετο ή αφήστε 2 χρήσιμα σχόλια.»</p></div>
+            </details>
+            <details class="curve"><summary><strong>6) Ακατάλληλα/αστεία επίθετα</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Pause–Reset· αν επαναληφθεί, ρόλος γραμματέα ομάδας.</p>
+              <p><strong>Τι λέτε:</strong> «Ο χώρος είναι συνεργατικός. Κάνουμε reset και συνεχίζουμε.»</p></div>
+            </details>
+            <details class="curve"><summary><strong>7) Ομάδα αρνείται το Quizlet</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Mini‑challenge ή ρόλος κριτών (έλεγχος ορθότητας επιθέτων άλλων ομάδων).</p>
+              <p><strong>Τι λέτε:</strong> «Δεν σας ταιριάζει; Γίνετε κριτές…»</p></div>
+            </details>
+            <details class="curve"><summary><strong>8) Θόρυβος/διάσπαση προσοχής</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Attention reset: ρυθμικό παλαμάκι ή 30″ σιωπηρή επαναφορά.</p>
+              <p><strong>Τι λέτε:</strong> «Παύση 10″. Ξανακάθεστε σε θέση εργασίας, βλέμμα εδώ…»</p></div>
+            </details>
+            <details class="curve"><summary><strong>9) Συσκευές χωρίς μπαταρία</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Ρόλος scribe/reader σε ζευγάρι ή board writers.</p>
+              <p><strong>Τι λέτε:</strong> «Χωρίς συσκευή; Τέλεια—γίνεσαι γραμματέας της ομάδας…»</p></div>
+            </details>
+            <details class="curve"><summary><strong>10) «Κρασάρει» το λάπτοπ διδάσκοντα/ουσας</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Προβολή από συσκευή μαθητή/τριας (αν γίνεται) ή board‑led δραστηριότητα.</p>
+              <p><strong>Τι λέτε:</strong> «Ο υπολογιστής κάνει διάλειμμα… γεμίζουμε τον πίνακα με επίθετα.»</p></div>
+            </details>
+
+            <h5>Χρόνος / Ροή</h5>
+            <details class="curve"><summary><strong>11) Ανακοίνωση κόβει 7′</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Κόβετε δραστηριότητα (ή τον Quizlet γύρο)· κρατάτε οπωσδήποτε το Exit Ticket.</p>
+              <p><strong>Τι λέτε:</strong> «Χάσαμε 7′—κόβουμε το Quizlet και πάμε στο Exit Ticket.»</p></div>
+            </details>
+            <details class="curve"><summary><strong>12) Αργεί το login στο Padlet</strong></summary>
+              <div class="curveBody"><p><strong>Plan B:</strong> Προφορική ιδεοθύελλα με καταγραφή στον πίνακα· όσοι/ες συνδέονται συνεχίζουν.</p>
+              <p><strong>Τι λέτε:</strong> «Όσο συνδέεστε, φωνάξτε ένα επίθετο· το γράφω στον πίνακα.»</p></div>
+            </details>
+
+            <details class="curve"><summary><strong>Πίνακας Σύνοψης (Γρήγορη Αναφορά)</strong></summary>
+              <div class="curveBody">
+                <ul>
+                  <li><strong>Wi‑Fi down →</strong> χαρτάκια/πίνακας.</li>
+                  <li><strong>Projector fails →</strong> εκτυπώσεις/λεκτική απεικόνιση.</li>
+                  <li><strong>Padlet freezes →</strong> Google Doc/χαρτί/πίνακας.</li>
+                  <li><strong>Quizlet crash →</strong> «σκάλα συνωνύμων».</li>
+                  <li><strong>Γρήγοροι/ές →</strong> upgrade/comment.</li>
+                  <li><strong>Ακατάλληλα →</strong> reset.</li>
+                  <li><strong>Άρνηση Quizlet →</strong> κριτές/mini‑challenge.</li>
+                  <li><strong>Θόρυβος →</strong> attention reset.</li>
+                  <li><strong>Συσκευές νεκρές →</strong> scribe/board writer.</li>
+                  <li><strong>Λάπτοπ διδ. down →</strong> συσκευή μαθητή/τριας.</li>
+                  <li><strong>Απώλεια χρόνου →</strong> κόψτε δραστηριότητα, κρατήστε Exit Ticket.</li>
+                  <li><strong>Αργό login →</strong> προφορική ιδεοθύελλα.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα A6 — «5‑Minute Takeover» — Φύλλο Εργασίας Μαθητή/τριας</summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><strong>Ανάθεση:</strong> Σχεδιάζετε μια μικρο‑δραστηριότητα 5′ στις προθέσεις τόπου, την οποία θα υλοποιήσει μαθητής/τρια (student‑led activity).</li>
+            <li><strong>Παρουσίαση:</strong> Επιλέγετε 2–3 ιδέες για σύντομη επίδειξη στην ολομέλεια.</li>
+          </ul>
+          <ul>
+            <li><strong>Παραλλαγές:</strong> «Walk‑and‑write», ταχύρρυθμο παιχνίδι τάξης, μικρο‑δείγμα καθοδηγούμενης ομότιμης διδασκαλίας (peer‑instruction mini‑demo).</li>
+
+          </ul>
+        </div>
+      </div>
+    </details>
+
+  </main>
+
+  <footer>✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨</footer>
+
+<script>
+  // Theme toggle with persistence
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const savedTheme = localStorage.getItem('theme1') || 'dark';
+  if(savedTheme === 'light'){
+    document.body.classList.add('light');
+    themeLabel.textContent = 'Light mode';
+  }
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('theme1', isLight ? 'light' : 'dark');
+    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
+  });
+
+  // Expand/Collapse all sections (outer details)
+  const expandAllBtn = document.getElementById('expandAll');
+  const collapseAllBtn = document.getElementById('collapseAll');
+  const sections = [...document.querySelectorAll('main details')];
+  expandAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=true));
+  collapseAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=false));
+
+  // Text size slider
+  const size = document.getElementById('size');
+  size.addEventListener('input', e => {
+    document.documentElement.style.fontSize = e.target.value + 'px';
+  });
+
+  // Print opens all first
+  const printBtn = document.getElementById('printBtn');
+  function openAll(){ sections.forEach(d=>d.open=true); }
+  printBtn.addEventListener('click',()=>{ openAll(); setTimeout(()=>window.print(), 80); });
+  window.onbeforeprint = openAll;
+
+  // Pivot tab toggle & Open/Close all curve details
+  (function(){
+    const tabBtn = document.getElementById('pivotTabBtn');
+    const panel = document.getElementById('pivotPanel');
+    const toggleAll = document.getElementById('pivotToggleAll');
+    if(tabBtn && panel){
+      tabBtn.addEventListener('click',()=>{
+        const show = !panel.classList.contains('show');
+        panel.classList.toggle('show');
+        tabBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+        if(show){ panel.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    }
+    if(toggleAll){
+      toggleAll.addEventListener('click',()=>{
+        const items = Array.from(document.querySelectorAll('#pivotPanel details.curve'));
+        const anyClosed = items.some(d=>!d.open);
+        items.forEach(d=> d.open = anyClosed);
+        toggleAll.setAttribute('aria-expanded', anyClosed ? 'true' : 'false');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

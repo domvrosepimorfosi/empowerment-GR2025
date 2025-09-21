@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CATEGORIES 5–6 — Digital</title>
+  <style>
+    :root { --bg:#0b1224; --panel:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#a1a7b5; --border:#1f2a44 }
+    body.light { --bg:#ffffff; --panel:#f8fafc; --card:#ffffff; --ink:#0b1224; --muted:#475569; --border:#e5e7eb; background:#fff!important }
+    * { box-sizing:border-box }
+    html, body { height:100% }
+    body { margin:0; background:linear-gradient(135deg,#0b1224 0%,#0f172a 60%,#0b1224 100%); color:var(--ink); font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif }
+    header { position:sticky; top:0; z-index:50; background:var(--panel); border-bottom:1px solid var(--border); padding:14px 12px }
+    .bar { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; max-width:1000px; margin:0 auto }
+    .title { font-weight:800; font-size:clamp(18px,2.6vw,28px) }
+    .controls { display:flex; gap:8px; align-items:center }
+    button, input[type=range] { background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:12px; padding:8px 10px; font-size:14px }
+    .grid { max-width:1000px; margin:12px auto 64px; padding:0 12px; display:grid; gap:12px }
+    details { background:linear-gradient(180deg,rgba(17,24,39,.92),rgba(11,18,36,.98)); border:1px solid var(--border); border-radius:16px; overflow:hidden }
+    body.light details { background:#fff }
+    summary { list-style:none; cursor:pointer; padding:14px 16px; display:flex; align-items:center; gap:10px; color:#c7d2fe; font-weight:700 }
+    body.light summary { color:#1e293b }
+    summary::-webkit-details-marker { display:none }
+    .content { padding:0 16px 16px }
+    .card { background:rgba(2,6,23,.4); border:1px solid var(--border); border-radius:14px; padding:12px }
+    body.light .card { background:#fff }
+    ul { margin:6px 0 0 18px }
+    footer { position:fixed; left:0; right:0; bottom:0; background:transparent; color:var(--muted); text-align:center; padding:8px 12px }
+    @media print { @page{ size:A4; margin:12mm } body{ background:#fff; color:#000 } header,footer{ display:none } details{ background:#fff; border-color:#bbb } summary{ color:#000 } .content{ color:#000 } }
+    .btn { display:inline-block; text-decoration:none; border:1px solid var(--border); background:var(--card); color:var(--ink); padding:8px 12px; border-radius:12px }
+    .btn:hover { border-color:#334155 }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="title">Digital Tools & Hacks</div>
+      <div class="controls">
+        <button id="themeToggle">Toggle Light/Dark</button>
+        <button id="expandAll">Expand All</button>
+        <button id="collapseAll">Collapse All</button>
+        <input id="size" type="range" min="14" max="22" value="16" />
+        <button id="printBtn">Print</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <details open>
+      <summary><span>CATEGORY 5 — Digital Hacks & Ways to Combine Tools for Optimising Prep & Teaching</span></summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><a class="btn" href="https://gemini.google.com/u/6/gem/storybook" target="_blank" rel="noopener">Gemini Storybook</a></li>
+            <li><a class="btn" href="https://speechma.com/" target="_blank" rel="noopener">Speechma</a></li>
+            <!-- New tools added below in the specified order -->
+            <li><a class="btn" href="https://vheer.com/" target="_blank" rel="noopener">Vheer</a></li>
+            <li><a class="btn" href="https://www.edtechteacher.gr/2021/08/canva-for-education.html" target="_blank" rel="noopener">Canva for Education (EdTechTeacher)</a></li>
+            <li><a class="btn" href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a></li>
+            <li><a class="btn" href="https://app.diffit.me/#topic" target="_blank" rel="noopener">Diffit</a></li>
+            <li><a class="btn" href="https://online-video-cutter.com/remove-logo" target="_blank" rel="noopener">Online Video Cutter — Remove Logo</a></li>
+            <li><a class="btn" href="https://pictory.ai/ai-video-editor?gc_id=21048298925&g_special_campaign=true&gad_source=1&gad_campaignid=22900333803&gbraid=0AAAAAChc-CJd7QWQveBt8McvaljuwrV-H&gclid=Cj0KCQjw267GBhCSARIsAOjVJ4Gw45cQ9Zu7rTlCgkQU5wM6fwR6pgjU6JKTewtC_K8wicgtAMbzplkaAg38EALw_wcB" target="_blank" rel="noopener">Pictory AI Video Editor</a></li>
+            <li><a class="btn" href="https://huggingface.co/spaces/openai/whisper" target="_blank" rel="noopener">Whisper (HuggingFace)</a></li>
+            <li><a class="btn" href="https://www.youtube.com/channel/UCn0jq-LEikDRVDQHQi47eYw" target="_blank" rel="noopener">YouTube Channel</a></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>CATEGORY 6 — Presentation of New Digital Applications to Facilitate Teachers’ Work</span></summary>
+      <div class="content">
+        <div class="card">
+          <ul>
+            <li><a class="btn" href="https://padlet.com/pdomvros/digital-tools-ln2qxkwuluscaq1d" target="_blank" rel="noopener">Tools 1</a></li>
+            <li><a class="btn" href="https://padlet.com/domvrosyliko1/padlet-s3t9yt7mexfoggcn" target="_blank" rel="noopener">Tools 2</a></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </main>
+
+  <footer>✨✍️ Created by Panagiotis Domvros, English and Drama Teacher, All Rights Reserved ✍️✨</footer>
+
+  <script>
+    // Theme toggle with persistence
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme56clean') || 'dark';
+    if (saved === 'light') document.body.classList.add('light');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme56clean', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Expand/Collapse all
+    const ex = document.getElementById('expandAll');
+    const col = document.getElementById('collapseAll');
+    const secs = [...document.querySelectorAll('details')];
+    ex.addEventListener('click', () => secs.forEach(d => d.open = true));
+    col.addEventListener('click', () => secs.forEach(d => d.open = false));
+
+    // Size slider
+    document.getElementById('size').addEventListener('input', e => {
+      document.documentElement.style.fontSize = e.target.value + 'px';
+    });
+
+    // Print
+    const printBtn = document.getElementById('printBtn');
+    function openAll() { secs.forEach(d => d.open = true); }
+    printBtn.addEventListener('click', () => { openAll(); setTimeout(() => window.print(), 80) });
+    window.onbeforeprint = openAll;
+  </script>
+</body>
+</html>

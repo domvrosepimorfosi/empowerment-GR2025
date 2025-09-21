@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Θεατρική Παιδεία στην Τάξη — Τεχνικές & Παιχνίδια (Interactive)</title>
+<style>
+  :root{
+    /* Dark-teal (default) */
+    --bg:#072a2a; --panel:#0b3b3b; --card:#0e2f2f; --ink:#e5e7eb;
+    --muted:#a1a7b5; --border:#114e4e; --accent:#2dd4bf; --accent2:#38bdf8;
+  }
+  body.light{
+    /* Light theme */
+    --bg:#ffffff; --panel:#f8fafc; --card:#ffffff; --ink:#0b1224;
+    --muted:#475569; --border:#e5e7eb; --accent:#0ea5e9; --accent2:#7c3aed;
+    background:#fff !important;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; display:flex; flex-direction:column; min-height:100vh;
+    background:linear-gradient(135deg,#072a2a 0%,#0b3b3b 60%,#072a2a 100%);
+    color:var(--ink); font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    padding-bottom:64px; /* ώστε το fixed footer να μη σκεπάζει περιεχόμενο */
+  }
+  header{position:sticky; top:0; z-index:50; background:var(--panel); border-bottom:1px solid var(--border); padding:14px 12px}
+  .bar{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; max-width:1200px; margin:0 auto}
+  .title{font-weight:800; font-size:clamp(18px,2.6vw,28px)}
+  .sub{color:var(--muted); font-size:14px}
+  .controls{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:flex-end}
+  button,input[type="range"]{background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:12px; padding:8px 10px; font-size:14px}
+  button:hover{border-color:#206060}
+  main.grid{max-width:1200px; margin:12px auto; padding:0 12px 40px; display:grid; gap:12px}
+  details{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  summary{list-style:none; cursor:pointer; padding:14px 16px; display:flex; align-items:center; gap:10px; color:#c7d2fe; font-weight:800}
+  summary::-webkit-details-marker{display:none}
+  body.light summary{color:#1e293b}
+  .chev{width:10px; height:10px; border-right:2px solid #8da2fb; border-bottom:2px solid #8da2fb; transform:rotate(-45deg); transition:.2s}
+  body.light .chev{border-color:#64748b}
+  details[open] .chev{transform:rotate(45deg)}
+  .content{padding:0 16px 16px; background:var(--card)}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px}
+  h3{margin:12px 0 6px}
+  h4{margin:10px 0 6px; color:#a5b4fc}
+  body.light h4{color:#374151}
+  ul,ol{margin:6px 0 0 18px}
+  .pill{font-size:12px; border:1px solid var(--border); background:var(--card); color:var(--ink); padding:2px 8px; border-radius:999px}
+  .muted{color:var(--muted)}
+  footer{
+    position:fixed; left:0; right:0; bottom:0;
+    background:var(--panel); border-top:1px solid var(--border);
+    color:var(--muted); text-align:center; padding:8px 12px;
+    pointer-events:none; /* να μη μπλέκεται στο scrolling/κλικ */
+  }
+  @media print{
+    @page{size:A4; margin:12mm}
+    body{background:#fff; color:#000; padding-bottom:0}
+    header,footer,.controls{display:none}
+    details{background:#fff; border-color:#bbb}
+    summary{color:#000}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <div class="title">Θεατρική Παιδεία στην Τάξη — Τεχνικές & Παιχνίδια</div>
+        <div class="sub">✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨ • <span id="themeLabel">Dark mode</span></div>
+      </div>
+      <div class="controls">
+        <button id="themeToggle" title="Εναλλαγή θέματος">Φωτεινό/Σκοτεινό</button>
+        <button id="expandAll">Άνοιγμα όλων</button>
+        <button id="collapseAll">Κλείσιμο όλων</button>
+        <label for="size" class="muted">Μέγεθος κειμένου</label>
+        <input id="size" type="range" min="14" max="22" value="16" />
+        <button id="printBtn">Εκτύπωση</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <!-- Πλαίσιο -->
+    <details open>
+      <summary><span class="chev"></span>Κείμενο Πλαισίωσης</summary>
+      <div class="content">
+        <div class="card">
+          «Η θεατρική παιδεία <em>αποδομεί φραγμούς</em>, ενεργοποιεί <strong>σώμα–φωνή–φαντασία</strong> και κάνει την επικοινωνία
+          ασφαλές, κοινό πείραμα. Στόχευσε στην ενεργή ακρόαση, στη ρύθμιση της προσοχής (focus) και σκέψου πώς κάθε τεχνική
+          μεταφέρεται στη δική σου διδακτική στόχευση.»
+        </div>
+        <div class="card">
+          <h4>Γενική οδηγία</h4>
+          <ul>
+            <li><strong>Ενεργή ακρόαση:</strong> παραφράζεις, ανακλάς, επιβεβαιώνεις.</li>
+            <li><strong>Συγκέντρωση (focus):</strong> σαφή σήματα έναρξης/λήξης, καθαρά ερεθίσματα.</li>
+            <li><strong>Μεταφορά:</strong> κάθε δραστηριότητα «ντύνεται» με γλωσσικούς στόχους και κοινωνικο-συναισθηματικές δεξιότητες.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Α. ΓΝΩΡΙΜΙΑ -->
+    <details>
+      <summary><span class="chev"></span>Α) Γνωριμία — «Χαρτί Τουαλέτας» (Επίθετα)</summary>
+      <div class="content">
+        <div class="card">
+          <div class="pill">Στόχος</div>
+          <p>Συστήνεσαι δημιουργικά, εξασκείς λεξιλόγιο επιθέτων και ρυθμίζεις ασφαλές κλίμα ομάδας.</p>
+          <div class="pill">Υλικά</div>
+          <p>Ένα ρολό χαρτί, πίνακας/μαρκαδόρος.</p>
+          <div class="pill">Βήματα</div>
+          <ol>
+            <li>Περνάς το ρολό· ο/η καθένας/καθεμία κόβει όσα «τετραγωνάκια» θέλει.</li>
+            <li>Ανά τετραγωνάκι λες ένα <strong>επίθετο</strong> που σε περιγράφει.</li>
+            <li><em>Follow-up:</em> λες το όνομά σου∙ ο/η διπλανός/ή το επαναλαμβάνει και δίνει 1 επίθετο που θυμάται.</li>
+          </ol>
+          <div class="pill">Μεταφορά στη γλώσσα</div>
+          <ul>
+            <li>Σύνδεση με «be/feel + adj» ή με μορφολογικά στοιχεία (αρσενικό/θηλυκό/ουδέτερο).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Β. ΕΝΕΡΓΟΠΟΙΗΣΗ ΦΑΝΤΑΣΙΑΣ -->
+    <details>
+      <summary><span class="chev"></span>Β) Ενεργοποίηση Φαντασίας — «Οι πηγές/αντικείμενα φτιάχνουν ιστορία»</summary>
+      <div class="content">
+        <div class="card">
+          <div class="pill">Στήσιμο</div>
+          <p>Δημιουργείς κύκλο με σκοινί∙ οι καρέκλες μπαίνουν <em>μέσα</em> στον κύκλο.</p>
+          <h4>Στάδια</h4>
+          <ol>
+            <li><strong>Κουτί με προσωπικά αντικείμενα:</strong> κλείνεις τα μάτια, παίρνεις τυχαία ένα αντικείμενο του/της εμψυχωτή/τριας και εξάγεις «στοιχεία» για εκείνον/η∙ καταγραφή στον πίνακα → φτιάχνετε μαζί την «ιστορία» του/της. </li>
+            <li><strong>Σιωπηλή κίνηση & ανταλλαγή:</strong> βγάζετε καρέκλες έξω∙ κρατάς επάνω σου <em>δικό σου</em> αντικείμενο (κρυφό). Με μουσική κινείσαι διαγώνια, αλλάζεις κατεύθυνση μόλις δεις πλάτη∙ στη διακοπή συστήνεσαι στο άτομο μπροστά σου, του δίνεις το αντικείμενο και εξηγείς γιατί είναι σημαντικό.</li>
+            <li><strong>Ιχνηλασία προέλευσης:</strong> επαναλαμβάνεις∙ όταν δίνεις το αντικείμενο, λες από ποιον/ποια το παρέλαβες και γιατί ήταν σημαντικό για εκείνον/η.</li>
+            <li><strong>Επανάληψη:</strong> ίδιο μοτίβο για εδραίωση ροής και μνήμης.</li>
+            <li><strong>Επιστροφή:</strong> αντικείμενα πίσω στους/στις ιδιοκτήτες/τριες∙ στέκεστε στον κύκλο∙ ονοματεπώνυμο + μια <em>χαρακτηριστική κίνηση</em> με το αντικείμενο∙ η ομάδα επαναλαμβάνει όνομα-κίνηση κάθε φορά.</li>
+            <li><strong>Γρήγορη επανάληψη:</strong> κύκλος ταχύτητας.</li>
+            <li><strong>Χορογραφία:</strong> στο ρυθμό της μουσικής, ο/η κάθε ένας/μια δίνει κίνηση∙ όλοι/ες επαναλαμβάνετε μέχρι να «κλείσει» ο κύκλος.</li>
+          </ol>
+          <h4>Tactile Box (παραλλαγή)</h4>
+          <ul>
+            <li>Βάζεις το χέρι στο κουτί χωρίς να βλέπεις∙ διαλέγεις αντικείμενο.</li>
+            <li>Το «αποκαλύπτεις» με πλάτη στο κοινό∙ με παντομίμα δίνεις στοιχεία∙ οι άλλοι/ες μαντεύουν.</li>
+          </ul>
+          <div class="pill">Μικροστόχοι γλώσσας</div>
+          <ul>
+            <li>Παρακίνηση αφηγηματικού λόγου («ήταν/είναι», «πήρα/έδωσα»), λεξιλόγιο συναισθημάτων/αξίας.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Γ. ΔΗΜΙΟΥΡΓΙΑ ΟΜΑΔΩΝ -->
+    <details>
+      <summary><span class="chev"></span>Γ) Δημιουργία Ομάδων — Ενεργοποίηση Σώματος</summary>
+      <div class="content">
+        <div class="card">
+          <div class="pill">Διαδικασία</div>
+          <ol>
+            <li><strong>Τυχαία επιλογή βραχιολιού</strong> (χρώματα).</li>
+            <li><strong>Αλλαγή βραχιολιού:</strong> λες το όνομά σου και έναν λόγο που θέλεις ν’ αλλάξεις.</li>
+            <li><strong>Ομαδοποίηση:</strong> μπαίνεις σε ομάδες με το ίδιο χρώμα (δίνετε <em>ονόματα ομάδων</em>).</li>
+            <li><strong>Παρατήρηση:</strong> κάθε ομάδα παρατηρεί τις άλλες (σιωπηρά, με συγκεκριμένο «φακό»).</li>
+            <li><strong>Μικτή σύνθεση:</strong> φτιάχνετε ομάδες με <em>ένα</em> βραχιόλι κάθε χρώματος.</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <!-- Δ. ΠΑΙΧΝΙΔΙΑ – ΔΡΑΣΤΗΡΙΟΤΗΤΕΣ -->
+    <details>
+      <summary><span class="chev"></span>Δ) Παιχνίδια – Δραστηριότητες</summary>
+      <div class="content">
+
+        <details class="card">
+          <summary><strong>Δ1. Δημιουργία Σχημάτων (Silent Shapes)</strong></summary>
+          <div>
+            <p><span class="pill">Στόχος:</span> μη λεκτική συνεργασία, χώρος–σώμα–εικόνα.</p>
+            <p><span class="pill">Πώς:</span> Σηκώνω κάρτες με σχήματα∙ εσύ/η ομάδα σχηματίζετε <emσε απόλυτη ησυχία</em> το σχήμα με τα σώματα/καρέκλες.</p>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ2. Καθρέφτης Κίνησης & Λόγου</strong></summary>
+          <div>
+            <p><span class="pill">Στήσιμο:</span> δύο σειρές καρεκλών αντικριστά.</p>
+            <ol>
+              <li>Δίνω απλούς «φυσικούς» κανόνες κίνησης καθιστών/ουσών.</li>
+              <li>Συνδυάζεις <strong>λόγο + κίνηση</strong>∙ ο/η «καθρέφτης» επαναλαμβάνει <em>χιαστί</em>.</li>
+              <li>Εναλλαγές ρόλων· κλιμάκωση δυσκολίας.</li>
+            </ol>
+            <p class="muted">Ο συνδυασμός ενισχύει μνήμη (ηθοποιός–ατάκα).</p>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ3. Διάδρομος Συνείδησης</strong></summary>
+          <div>
+            <p>Δύο παράλληλες σειρές αφήνουν «διάδρομο». Ο «χαρακτήρας» περπατά αργά∙ εσύ/η ομάδα ψιθυρίζετε:</p>
+            <ul>
+              <li>α) τι έχει στο μυαλό του/της,</li>
+              <li>β) τι νομίζει για εσένα ως ρόλο,</li>
+              <li>γ) τι σκέφτεσαι εσύ (ως ρόλος) γι’ αυτόν/ήν.</li>
+            </ul>
+            <p><em>Παραλλαγή:</em> «Άγγελοι» vs «Δαίμονες» σε αντίθετες πλευρές (#team_ATHENS / #team_SPARTA).</p>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ4. Push-In (Υπέρβαση Εμποδίου χωρίς Βία)</strong></summary>
+          <div>
+            <ol>
+              <li>Χωρίζεστε σε <strong>μεγάλη</strong> και <strong>μικρή</strong> ομάδα.</li>
+              <li>Η μεγάλη ομάδα επιλέγει <em>θέμα συζήτησης</em> που συνεχίζεται «ό,τι κι αν γίνει».</li>
+              <li>Η μικρή ομάδα φαντάζεται <em>επικείμενη καταστροφή</em> που αποτρέπεται μόνο αν διακοπεί η συζήτηση.</li>
+              <li>Με σήμα του/της εμψυχωτή/τριας η μικρή ομάδα «μπαίνει» και χρησιμοποιεί τα πάντα <strong>εκτός βίας</strong> για να πετύχει τον σκοπό.</li>
+              <li><strong>Stop</strong> πριν εξαντληθεί η ενέργεια∙ σύντομο debrief.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ5. Σκυταλοδρομία Πρότασης</strong></summary>
+          <div>
+            <p>Τέσσερις ομάδες∙ κάθε ομάδα γράφει <strong>μία πρόταση</strong> (1–2 λέξεις/άτομο). Όλοι/ες πρέπει να γράψουν.</p>
+            <ul>
+              <li>Η πρόταση είναι <em>πλήρης</em>, ορθογραφημένη, με ακριβείς πληροφορίες.</li>
+              <li>Δίνω γενικό θέμα (π.χ. «Νύχτα», «Εικονομαχία»).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ6. Κόντρα Κείμενο</strong></summary>
+          <div>
+            <p>Δίνω <strong>μια κατάσταση</strong> σε ζευγάρια/ομάδες∙ ζητάω να την εξελίξετε χρησιμοποιώντας <em>μόνο</em> το κείμενο που έχετε (π.χ. τηλεφωνικός κατάλογος). Στόχος: <em>υποκείμενο νόημα</em> μέσω φωνής/κίνησης.</p>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ7. Συναντήσεις — Παιχνίδι Ρόλων</strong></summary>
+          <div>
+            <ol>
+              <li>Μοιράζω <strong>κάρτες ρόλων</strong> (κρυφές). Κανείς δεν ξέρει τι είναι ο/η άλλος/η.</li>
+              <li>Στις ομάδες αποκαλύπτετε <em>μόνο</em> μεταξύ σας τις ταυτότητες∙ φτιάχνετε μικρή σκηνή με λόγο/κίνηση/παντομίμα.</li>
+              <li><strong>Απαγορεύεται</strong> να πείτε τη «λέξη-ετικέτα» του ρόλου.</li>
+              <li>Παρουσίαση∙ οι θεατές αναγνωρίζουν ρόλους από <em>συμπεριφορά, λεξιλόγιο, ύφος</em>.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ8. Tableau Vivant (Παγωμένες Εικόνες)</strong></summary>
+          <div>
+            <p>Ατομικά ή ομαδικά «φωτογραφίζεις» με σώματα μια ιδέα/στιγμή/στίχο/συναίσθημα. Η εικόνα μένει ακίνητη αλλά «φορτισμένη» — ιδανική αφετηρία γραφής ή συζήτησης.</p>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><strong>Δ9. Σκυταλοδρομία & Χιονοστιβάδα</strong></summary>
+          <div>
+            <ul>
+              <li><strong>Σκυταλοδρομία:</strong> κάθε άτομο προσθέτει <em>μία</em> λέξη/κίνηση εκεί που σταμάτησε ο/η προηγούμενος/η και αποχωρεί∙ ο/η επόμενος/η συνεχίζει.</li>
+              <li><strong>Αντίγραψε & Ανάπτυξε:</strong> αντιγράφεις τον/την προηγούμενο/η και μετά προσθέτεις κάτι δικό σου.</li>
+              <li><strong>Χιονοστιβάδα:</strong> ο/η προηγούμενος/η <em>μένει</em>∙ χτίζετε συλλογικό αυτοσχεδιασμό∙ εναλλακτικά διατηρείται σταθερός αριθμός παικτών στη «σκηνή» (π.χ. πάντα 2).</li>
+            </ul>
+            <p class="muted">Συνδυάζεται με δυναμική εικόνα, αργή κίνηση και διαβαθμισμένη δραματική ένταση.</p>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+
+      </div>
+    </details>
+
+  </main>
+
+  <footer>✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨</footer>
+
+<script>
+  // Theme toggle with persistence
+  const themeToggle=document.getElementById('themeToggle');
+  const themeLabel=document.getElementById('themeLabel');
+  const savedTheme=localStorage.getItem('cat4_theme')||'dark';
+  if(savedTheme==='light'){ document.body.classList.add('light'); themeLabel.textContent='Light mode'; }
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    const isLight=document.body.classList.contains('light');
+    localStorage.setItem('cat4_theme', isLight?'light':'dark');
+    themeLabel.textContent=isLight?'Light mode':'Dark mode';
+  });
+
+  // Expand/Collapse all
+  const sections=[...document.querySelectorAll('main details')];
+  document.getElementById('expandAll').addEventListener('click',()=>sections.forEach(d=>d.open=true));
+  document.getElementById('collapseAll').addEventListener('click',()=>sections.forEach(d=>d.open=false));
+
+  // Text size slider
+  document.getElementById('size').addEventListener('input',e=>{
+    document.documentElement.style.fontSize = e.target.value + 'px';
+  });
+
+  // Print (ανοίγει πρώτα όλα)
+  const printBtn=document.getElementById('printBtn');
+  function openAll(){ sections.forEach(d=>d.open=true); }
+  printBtn.addEventListener('click',()=>{ openAll(); setTimeout(()=>window.print(),80); });
+  window.onbeforeprint=openAll;
+</script>
+</body>
+</html>

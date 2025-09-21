@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Συνεργασία με «Δύσκολους» Γονείς/Κηδεμόνες </title>
+<style>
+  :root{ --bg:#072a2a; --panel:#0b3b3b; --card:#0e2f2f; --ink:#e5e7eb; --muted:#a1a7b5; --border:#114e4e; --accent:#2dd4bf; --accent2:#38bdf8 }
+  body.light{ --bg:#ffffff; --panel:#f8fafc; --card:#ffffff; --ink:#0b1224; --muted:#475569; --border:#e5e7eb; --accent:#0ea5e9; --accent2:#7c3aed; background:#fff !important }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:linear-gradient(135deg,#072a2a 0%,#0b3b3b 60%,#072a2a 100%);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    padding-bottom:60px; /* ώστε το fixed footer να μην κρύβει περιεχόμενο */
+  }
+  header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border);padding:14px 12px}
+  .bar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;max-width:1200px;margin:0 auto}
+  .title{font-weight:800;font-size:clamp(18px,2.6vw,28px)}
+  .sub{color:var(--muted);font-size:14px}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+  button,input[type="range"]{background:var(--card);color:var(--ink);border:1px solid var(--border);border-radius:12px;padding:8px 10px;font-size:14px}
+  .grid{max-width:1200px;margin:12px auto;padding:0 12px 60px;display:grid;gap:12px}
+
+  details{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  body.light details{background:#fff}
+  summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:10px;color:#c7d2fe;font-weight:700;letter-spacing:.2px}
+  body.light summary{color:#1e293b}
+  summary::-webkit-details-marker{display:none}
+  .chev{width:10px;height:10px;border-right:2px solid #8da2fb;border-bottom:2px solid #8da2fb;transform:rotate(-45deg);transition:.2s}
+  body.light .chev{border-color:#64748b}
+  details[open] .chev{transform:rotate(45deg)}
+  .content{padding:0 16px 16px;background:var(--card)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .pill{font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--ink);padding:4px 8px;border-radius:999px}
+  .muted{color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}
+  body.light .card{background:#fff}
+  h3{margin:12px 0 4px}
+  h4{margin:10px 0 6px;color:#a5b4fc}
+  body.light h4{color:#374151}
+  ul{margin:6px 0 0 18px}
+  .gr{color:#d1fae5}
+  body.light .gr{color:#065f46}
+
+  footer{
+    position:fixed;left:0;right:0;bottom:0;
+    background:var(--panel);border-top:1px solid var(--border);
+    color:var(--muted);text-align:center;padding:8px 12px
+  }
+
+  @media print{
+    @page{size:A4;margin:12mm}
+    body{background:#fff;color:#000;padding-bottom:0}
+    header,footer{display:none}
+    details{background:#fff;border-color:#bbb}
+    summary{color:#000}
+    .content{color:#000;background:#fff}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <div class="title">Συνεργασία με «Δύσκολους» Γονείς/Κηδεμόνες</div>
+        <div class="sub">✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨ •  <span id="themeLabel">Dark mode</span></div>
+      </div>
+      <div class="controls">
+        <button id="themeToggle" title="Εναλλαγή θέματος">Φωτεινό/Σκοτεινό</button>
+        <button id="expandAll">Άνοιγμα όλων</button>
+        <button id="collapseAll">Κλείσιμο όλων</button>
+        <label class="muted" for="size">Μέγεθος κειμένου</label>
+        <input id="size" type="range" min="14" max="22" value="16" />
+        <button id="printBtn">Εκτύπωση</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <details open>
+      <summary><span class="chev"></span>Κείμενο Πλαισίωσης</summary>
+      <div class="content">
+        <div class="card">«Οι γονείς/κηδεμόνες είναι συνεργάτες/ιδες. Η σαφήνεια υπερτερεί της “βαριάς” ορολογίας· το τρακ σημαίνει ότι νοιάζεσαι· η <em>παρουσία</em> μετρά περισσότερο από την ένταση. Στόχευσε στη <strong>σύνδεση</strong> αντί για την “παράσταση”.»</div>
+        <div class="row muted" style="margin-top:6px">Γιατί σε αφορά:
+          <ul>
+            <li>Η τακτική, στοχευμένη επικοινωνία ενισχύει τη δέσμευση και τη συνέπεια στο πλάνο δράσης.</li>
+            <li>Η σχολική-κοινή εμπλοκή οικογενειών πολλαπλασιάζει το αποτύπωμα.</li>
+            <li>Η ψύχραιμη αποκλιμάκωση + σαφή όρια προλαμβάνουν την κλιμάκωση.</li>
+            <li>Τήρησε τον GDPR: χρησιμοποίησε εγκεκριμένα κανάλια· προστάτευσε τα δεδομένα του/της μαθητή/τριας.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ1 — Αποδόμηση Μύθων (Parent Edition)</summary>
+      <div class="content">
+        <div class="row">
+          <div class="pill">Στόχος</div>
+          <div>Αντικαθιστάς μη βοηθητικούς μύθους με <strong>πρακτικές συνήθειες</strong>.</div>
+        </div>
+        <div class="card">
+          <h4>Μύθος → Πρακτική αντικατάσταση</h4>
+          <ul>
+            <li>«Πρέπει να απομνημονεύεις κάθε λέξη.» → Χρησιμοποίησε δομή/ιστορία· μίλησε σε άνθρωπο, όχι σε «σενάριο».</li>
+            <li>«Οι “μεγάλες” λέξεις σε κάνουν να φαίνεσαι ειδικός/ή.» → Η απλή γλώσσα χτίζει εμπιστοσύνη· μετάφρασε την ορολογία.</li>
+            <li>«Το τρακ σημαίνει ότι είσαι κακός/ή ομιλητής/τρια.» → Τρακ = νοιάζεσαι· ονόμασέ το, ανάπνευσε, συνέχισε.</li>
+            <li>«Πρέπει να μιλάς δυνατά.» → Ρυθμός–παύση–έμφαση καλύτερα από την ένταση.</li>
+
+          </ul>
+        </div>
+        <div class="row" style="margin-top:6px">
+
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ2 — Τηλεφωνική Επικοινωνία με Γονέα/Κηδεμόνα</summary>
+      <div class="content">
+        <div class="pill">BIOS = Boundary • Intent • Observation • Step</div>
+        <div class="card">
+          <h4>Ενδεικτικές ελληνικές φράσεις (συμπλήρωσε [μαθητή/τρια])</h4>
+          <ul>
+            <li><strong>Boundary/Χρόνος:</strong> <span class="gr">«Καλησπέρα σας. Έχω περίπου 4 λεπτά για να μοιραστώ κάτι χρήσιμο για το παιδί σας.»</span></li>
+            <li><strong>Intent/Πρόθεση:</strong> <span class="gr">«Σας καλώ γιατί θέλω ο/η [μαθητής/τρια] να αισθάνεται ότι τα καταφέρνει στα Αγγλικά και να στηρίξουμε μαζί την πρόοδό του/της.»</span></li>
+            <li><strong>Observation/Παρατήρηση (χωρίς κρίση):</strong> <span class="gr">«Σήμερα παρατήρησα ότι ξεκίνησε, αλλά σταμάτησε μετά από τρεις προτάσεις.»</span></li>
+            <li><strong>Step/Επόμενο βήμα:</strong> <span class="gr">«Δύο ιδέες που βοήθησαν στην τάξη ήταν μια αρχή πρότασης και ένα δίλεπτο διάλειμμα. Ποια θα λειτουργήσει στο σπίτι; Θα σας στείλω απόψε ένα μικρό υπόδειγμα.»</span></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ3 — Email Templates που Ρίχνουν τους Τόνους</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Template A — Έννοια/Ανησυχία (ουδέτερο)</h4>
+          <p><strong>Θέμα:</strong> Σύντομη ενημέρωση για τον/την [Μαθητή/Μαθήτρια] — [Μάθημα]</p>
+          <p>Καλησπέρα [Όνομα], παρατηρώ [συγκεκριμένη συμπεριφορά/αποτέλεσμα] κατά τη διάρκεια [πλαισίου]. Στο σχολείο βοηθά το [στρατηγική]. Μπορούμε να δοκιμάσουμε στο σπίτι το [μία μικρή ενέργεια] αυτή την εβδομάδα; Θα επανέλθω [ημερομηνία] για να δούμε πώς πήγε. Ευχαριστώ για τη συνεργασία.</p>
+        </div>
+        <div class="card">
+          <h4>Template B — Θετική «Μικρο-Νίκη»</h4>
+          <p>Καλησπέρα [Όνομα], μικρή νίκη σήμερα: ο/η [Μαθητής/Μαθήτρια] [συγκεκριμένη επιτυχία]. Αύριο θα το αξιοποιήσουμε με [επόμενο βήμα].</p>
+        </div>
+        <div class="card">
+          <h4>Template C — Επιβεβαίωση Συνάντησης (GDPR-safe)</h4>
+          <p>Καλησπέρα [Όνομα], επιβεβαιώνω ότι θα συναντηθούμε [ημερομηνία/ώρα] για το θέμα [θέμα]. Θα συζητήσουμε μόνο τη μάθηση του/της [μαθητή/τριας] (όχι άλλους/ες μαθητές/τριες). Μετά τη συνάντηση θα στείλω σύντομη σύνοψη ενεργειών. Παρακαλώ αποφύγετε την αποστολή ευαίσθητων στοιχείων με email· χαίρομαι να τα συζητήσουμε από κοντά.</p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ4 — Playbook Συνάντησης με Γονέα/Κηδεμόνα</summary>
+      <div class="content">
+
+        <div class="card">
+          <h4>Διαχείριση</h4>
+          <ul>
+            <li><em>Έναρξη:</em> <span class="gr">«Σας ευχαριστώ που ήρθατε. Στόχος μας σήμερα είναι να συμφωνήσουμε σε ένα πλάνο που θα βοηθήσει τον/την [μαθητή/τρια] να προοδεύει στα Αγγλικά.»</span></li>
+            <li><em>Ακρόαση:</em> <span class="gr">«Θα ήθελα να ακούσω την κυριότερη ανησυχία σας σε μία πρόταση.»</span> → <span class="gr">«Αν καταλαβαίνω σωστά, …»</span></li>
+            <li><em>Μοίρασμα δεδομένων:</em> σύντομα δεδομένα & δείγματα· χωρίς «ταμπέλες».</li>
+            <li><em>Συν-σχεδιασμός:</em> <span class="gr">«Έχω δύο επιλογές να δοκιμάσουμε· ποια ταιριάζει καλύτερα;»</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Κλείσιμο</h4>
+          <ul>
+            <li><span class="gr">«Συμφωνούμε να δοκιμάσουμε: [ενέργειες].»</span></li>
+            <li><span class="gr">«Θα στείλω σύνοψη μίας παραγράφου και θα επικοινωνήσω [ημερομηνία].»</span></li>
+            <li><span class="gr">«Προτιμάτε email ή τηλέφωνο; Ευχαριστώ για τη συνεργασία.»</span></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ5 — Ατάκες Ορίων</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Χρήσιμες ατάκες</h4>
+          <ul>
+            <li><strong>Acknowledge + Pivot:</strong>  • <span class="gr">«Σας ακούω. Ας το βάλουμε στο πλάνο για να το βελτιώσουμε.»</span></li>
+            <li><strong>Κανόνας χωρίς ένταση + Προσφορά:</strong> • <span class="gr">«Πρέπει να τηρώ την πολιτική του σχολείου, οπότε μπορώ να κάνω σήμερα το εξής…»</span></li>
+            <li><strong>Stop the shout:</strong> • <span class="gr">«Θέλω να σας ακούσω. Δεν μπορώ όσο οι φωνές είναι ψηλά. Θα περιμένω.»</span></li>
+            <li><strong>Επανεστίαση:</strong>” • <span class="gr">«Ας μείνουμε στη δουλειά του/της [μαθητή/τριας]. Δεν μπορούμε να συζητήσουμε για άλλους/ες μαθητές/τριες.»</span></li>
+            <li><strong>Όριο χρόνου:</strong>  • <span class="gr">«Έχω 10 λεπτά τώρα· αν χρειαστούμε περισσότερο, θα κανονίσουμε μεγαλύτερο ραντεβού.»</span></li>
+            <li><strong>Ασφαλής κλιμάκωση:</strong>  • <span class="gr">«Ας σταματήσουμε εδώ και ας επανέλθουμε με τον/την [Διευθυντή/Υποδιευθυντή] για να το λύσουμε σωστά.»</span></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ6 — Τύποι Γονέων/Κηδεμόνων & Κινήσεις</summary>
+      <div class="content">
+        <div class="card">
+          <h4>1) Θυμωμένος/η (δυνατά, γρήγορα)</h4>
+          <p><em>Κινήσεις:</em> Χαμήλωσε/επιβράδυνε τη φωνή· αντανάκλαση σε 1 πρόταση → δύο επιλογές.</p>
+          <p><em>Ατάκα:</em> <span class="gr">«Είστε αναστατωμένος/η επειδή θέλετε ο/η [μαθητής/τρια] να πετύχει. Έχω δύο επιλογές — να διαλέξουμε μία;»</span></p>
+        </div>
+        <div class="card">
+          <h4>2) Αγχωμένος/η (ανησυχεί, επαναλαμβάνει)</h4>
+          <p><em>Κινήσεις:</em> Κανονικοποίηση, σύνοψη, μικρο-πλάνο.</p>
+          <p><em>Ατάκα:</em> <span class="gr">«Πολλές οικογένειες νιώθουν έτσι. Ορίστε ένα μικρό πλάνο για αυτή την εβδομάδα· θα το ελέγξω την Παρασκευή.»</span></p>
+        </div>
+        <div class="card">
+          <h4>3) «Νομικός» Γονέας (τεκμήρια, πολιτική)</h4>
+          <p><em>Κινήσεις:</em> Μένεις σε γεγονότα, έγγραφα, πολιτική· χωρίς εικασίες.</p>
+          <p><em>Ατάκα:</em> <span class="gr">«Εδώ είναι τα σημερινά δείγματα και η ρουμπρίκα αξιολόγησης. Η πολιτική μας λέει [x]· μέσα σε αυτό, μπορούμε να προσφέρουμε [y].»</span></p>
+        </div>
+        <div class="card">
+          <h4>4) Υπερ-εμπλεκόμενος/η (micromanaging)</h4>
+          <p><em>Κινήσεις:</em> Διευκρίνισε ρόλους· όρισε «βοηθώ» vs «το κάνω εγώ».</p>
+          <p><em>Ατάκα:</em> <span class="gr">«Η καθοδήγησή σας είναι πολύτιμη. Για να χτίσουμε αυτονομία, ο/η [μαθητής/τρια] θα κάνει τα βήματα 1–2· εσείς μπορείτε να ελέγξετε το βήμα 3.»</span></p>
+        </div>
+        <div class="card">
+          <h4>5) Δύσκολη Επικοινωνία (δεν απαντά)</h4>
+          <p><em>Κινήσεις:</em> Εγκεκριμένα κανάλια, σύντομο μήνυμα + ένα σαφές αίτημα· προγραμμάτισε check-in.</p>
+          <p><em>Ατάκα:</em> <span class="gr">«Σύντομη ενημέρωση: [ένα γεγονός]. Μπορείτε να επιβεβαιώσετε [ναι/όχι]; Θα σας καλέσω στις 14:00 αν δεν έχω απάντηση.»</span></p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ7 — Τεκμηρίωση & Μίνι-Λίστα Ελέγχου GDPR</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Μονοσέλιδο αρχείο επικοινωνίας</h4>
+          <p>Ημ/νία & Ώρα • Κανάλι • Γονέας/Κηδεμόνας • Σύνοψη (γεγονότα) • Συμφωνημένες ενέργειες • Ημερομηνία επανελέγχου • Θέση αποθήκευσης</p>
+          <h4>Συνήθειες ασφαλείς για GDPR</h4>
+          <ul>
+            <li>Χρησιμοποίησε συστήματα που εγκρίνει το σχολείο· απόφυγε προσωπικά μηνύματα για μαθητικά θέματα.</li>
+            <li>Κοινoποίησε το ελάχιστο αναγκαίο· ποτέ για άλλους/ες μαθητές/τριες.</li>
+            <li>Επιβεβαίωσε ταυτότητα πριν τηλ. κοινοποίηση λεπτομερειών.</li>
+            <li>Προτίμησε σύντομες, πραγματολογικές σύνοψεις μετά τη συνάντηση έναντι μακρών threads.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ8 — Επίδειξη Αποκλιμάκωσης</summary>
+      <div class="content">
+        <div class="card">
+          <ol>
+            <li>Αναπνοή + στάση σώματος.</li>
+            <li>Ονόμασε το συναίσθημα: <span class="gr">«Ακούγεστε πραγματικά απογοητευμένος/η.»</span></li>
+            <li>Μία ερώτηση: <span class="gr">«Ποιο είναι το πιο σημαντικό που χρειάζεται να φτιάξουμε πρώτο;»</span></li>
+            <li>Δύο επιλογές: <span class="gr">«Μπορούμε να προσαρμόσουμε την εργασία για το σπίτι ή να ορίσουμε εβδομαδιαίο σύντομο ραντεβού ελέγχου.»</span></li>
+            <li>Κλείσιμο με follow-up: <span class="gr">«Θα σας στείλω το πλάνο με email· ξανασυναντιόμαστε την επόμενη Πέμπτη.»</span></li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="chev"></span>Δραστηριότητα Γ9 — Κάρτες Ατζέντας & Έτοιμα Σενάρια</summary>
+      <div class="content">
+        <div class="card">
+          <h4>Ατζέντα</h4>
+          <p>Στόχος • Ανάγκη/Ανησυχία Γονέα • Τεκμήρια • Επιλογές • Απόφαση • Follow-up</p>
+        </div>
+        <div class="card">
+          <h4>«Δύσκολες» καταστάσεις — Έτοιμες ατάκες</h4>
+          <ul>
+            <li><strong>Φήμη από social media:</strong> <span class="gr">«Δεν μπορώ να μιλήσω για άλλους/ες μαθητές/τριες ή ιδιωτικά ζητήματα. Αυτό που μπορώ να επιβεβαιώσω για τη δουλειά του/της [μαθητή/τριας] σήμερα είναι… Ας εστιάσουμε εκεί.»</span></li>
+            <li><strong>Ηχογράφηση χωρίς συναίνεση:</strong> <span class="gr">«Η ηχογράφηση/βιντεοσκόπηση συναντήσεων δεν επιτρέπεται εδώ. Θα σας στείλω αμέσως μετά μια σύντομη περίληψη με email, ώστε να υπάρχει επίσημο αρχείο.»</span></li>
+            <li><strong>Υπόσχεση που δεν μπορείς να τηρήσεις:</strong> <span class="gr">«Δεν υπόσχομαι κάτι που δεν μπορώ να τηρήσω. Ορίστε τι μπορώ να κάνω αυτή την εβδομάδα.»</span></li>
+            <li><strong>Κλιμάκωση εκτός αρμοδιότητας:</strong> <span class="gr">«Αυτό χρειάζεται τη συμβολή της διοίκησης. Θα προσκαλέσω τον/την [Διευθυντή/Υποδιευθυντή] ώστε να αποφασίσουμε μαζί.»</span></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+  </main>
+
+  <footer>✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const savedTheme = localStorage.getItem('cat3_gr_theme') || 'dark';
+  if(savedTheme === 'light'){ document.body.classList.add('light'); themeLabel.textContent = 'Light mode'; }
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('cat3_gr_theme', isLight ? 'light' : 'dark');
+    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
+  });
+
+  const expandAllBtn = document.getElementById('expandAll');
+  const collapseAllBtn = document.getElementById('collapseAll');
+  const sections = [...document.querySelectorAll('main details')];
+  expandAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=true));
+  collapseAllBtn.addEventListener('click',()=>sections.forEach(d=>d.open=false));
+
+  const size = document.getElementById('size');
+  size.addEventListener('input', e => { document.documentElement.style.fontSize = e.target.value + 'px'; });
+
+  const printBtn = document.getElementById('printBtn');
+  function openAll(){ sections.forEach(d=>d.open=true); }
+  printBtn.addEventListener('click',()=>{ openAll(); setTimeout(()=>window.print(), 80); });
+  window.onbeforeprint = openAll;
+</script>
+</body>
+</html>

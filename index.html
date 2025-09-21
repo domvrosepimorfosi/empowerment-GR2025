@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Οργάνωση Μαθήματος, Διαχείριση Τάξης & Ενδυνάμωση Εκπαιδευτικού</title>
+<style>
+  /* Dark Teal (default) + Light toggle */
+  :root{
+    --bg:#072a2a; --panel:#0b3b3b; --card:#0e2f2f;
+    --ink:#e5e7eb; --muted:#a1a7b5; --border:#114e4e;
+    --accent:#2dd4bf; --accent2:#38bdf8;
+    --chip:#123c3c; --chipActive:#0f4a4a;
+  }
+  body.light{
+    --bg:#ffffff; --panel:#f8fafc; --card:#ffffff;
+    --ink:#0b1224; --muted:#475569; --border:#e5e7eb;
+    --accent:#0ea5e9; --accent2:#7c3aed;
+    --chip:#f3f4f6; --chipActive:#e5f2ff;
+    background:#fff !important;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    background:linear-gradient(135deg,#072a2a 0%,#0b3b3b 60%,#072a2a 100%);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    line-height:1.5;
+    padding-bottom:64px; /* ώστε το fixed footer να μη σκεπάζει περιεχόμενο */
+  }
+  a{color:var(--accent)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--border)}
+  .bar{max-width:1200px;margin:0 auto;padding:14px 12px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+  .title{font-weight:800;font-size:clamp(20px,2.6vw,30px)}
+  .subtitle{color:var(--muted);font-size:14px}
+  .utils{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{border:1px solid var(--border);background:var(--card);color:var(--ink);padding:8px 12px;border-radius:10px;cursor:pointer}
+
+  /* Tabs */
+  nav.tabs{max-width:1200px;margin:16px auto 0;padding:0 12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .tab{
+    appearance:none;border:1px solid var(--border);background:var(--chip);color:var(--ink);
+    padding:12px 16px;border-radius:999px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:44px;line-height:1;outline:none
+  }
+  .tab[aria-selected="true"]{background:var(--chipActive);border-color:var(--accent)}
+  .tab[data-color="home"][aria-selected="true"]{border-color:#9CA3AF}
+  .tab[data-color="c1"][aria-selected="true"],
+  .tab[data-color="c2"][aria-selected="true"],
+  .tab[data-color="c3"][aria-selected="true"],
+  .tab[data-color="c4"][aria-selected="true"],
+  .tab[data-color="c5"][aria-selected="true"],
+  .tab[data-color="c6"][aria-selected="true"]{outline-color:var(--accent)}
+
+  /* Panels */
+  main{max-width:1200px;margin:10px auto 0;padding:0 12px 160px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .muted{color:var(--muted)}
+  .cta{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--border);background:var(--panel);color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:700}
+  .qr{max-width:220px;border:1px solid var(--border);border-radius:12px;background:var(--card);padding:10px}
+  details.card summary{list-style:none;cursor:pointer}
+  details.card summary::-webkit-details-marker{display:none}
+
+  /* Footer */
+  footer{
+    position:fixed;left:0;right:0;bottom:0;
+    background:var(--panel);border-top:1px solid var(--border);
+    color:var(--muted);text-align:center;padding:8px 12px;
+    pointer-events:none; /* να μη «πιάνει» το scroll */
+  }
+
+  /* Print */
+  @media print{
+    @page{size:A4;margin:12mm}
+    header,footer,nav.tabs,.utils{display:none}
+    body{background:#fff;color:#000;padding-bottom:0}
+    main{padding-bottom:0}
+    .card{background:#fff;border-color:#bbb}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div>
+      <div class="title">Οργάνωση Μαθήματος, Διαχείριση Τάξης & Ενδυνάμωση Εκπαιδευτικού</div>
+      <div class="subtitle">✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨ • <span id="themeLabel">Dark mode</span></div>
+    </div>
+    <div class="utils">
+      <button id="themeToggle" class="btn" title="Εναλλαγή θέματος">Φωτεινό/Σκοτεινό</button>
+      <button id="printCurrent" class="btn" title="Εκτύπωση τρέχουσας καρτέλας">Εκτύπωση</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Ενότητες σεμιναρίου">
+  <button class="tab" data-color="home" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true">Αρχική</button>
+  <button class="tab" data-color="c1" role="tab" id="tab-c1" aria-controls="panel-c1" aria-selected="false">Κατηγορία 1</button>
+  <!-- ΝΕΟ TAB: Σχέδια Μαθήματος -->
+  <button class="tab" data-color="c1" role="tab" id="tab-lessonplans" aria-controls="panel-lessonplans" aria-selected="false">Σχέδια Μαθήματος</button>
+  <button class="tab" data-color="c2" role="tab" id="tab-c2" aria-controls="panel-c2" aria-selected="false">Κατηγορία 2</button>
+  <button class="tab" data-color="c2" role="tab" id="tab-resources" aria-controls="panel-resources" aria-selected="false">Πόροι</button>
+  <button class="tab" data-color="c3" role="tab" id="tab-c3" aria-controls="panel-c3" aria-selected="false">Κατηγορία 3</button>
+  <button class="tab" data-color="c4" role="tab" id="tab-c4" aria-controls="panel-c4" aria-selected="false">Κατηγορία 4</button>
+  <button class="tab" data-color="c5" role="tab" id="tab-c5" aria-controls="panel-c5" aria-selected="false">Κατηγορίες 5 &amp; 6</button>
+</nav>
+
+<main>
+  <section id="panel-home" class="panel active" role="tabpanel" aria-labelledby="tab-home">
+    <details class="card" style="margin-bottom:12px">
+      <summary style="font-size:1.5em;font-weight:700;line-height:1.2;margin-bottom:10px;">Καλωσόρισες/Καλωσήρθες</summary>
+      <div style="text-align:justify;">
+        <p>Σε αυτό το επιμορφωτικό σεμινάριο —σχεδιασμένο από τον/την εκπαιδευτικό Αγγλικής και Θεάτρου Παναγιώτη Δόμβρο— θα εργαστείς σε <strong>διαδραστικές ενότητες</strong> που καλύπτουν κρίσιμα πεδία της διδακτικής πράξης: από τον <em>σχεδιασμό μαθήματος</em> και την <em>ενεργοποίηση κινήτρων</em> μέχρι τη <em>διαχείριση τάξης</em> και τη <em>συνεργασία με γονείς/κηδεμόνες</em>. Στόχος μου είναι να σε εφοδιάσω με δοκιμασμένα εργαλεία που εφαρμόζεις άμεσα στο δικό σου πλαίσιο.</p>
+
+        <h4>Θεμελιώδεις Διδακτικές Ικανότητες</h4>
+        <p>Θα δομήσεις ένα «game plan» για το μάθημά σου, με έμφαση στην ευελιξία και τη δημιουργικότητα. Θα δεις πώς ποικίλες ρουτίνες και δραστηριότητες —από <em>icebreakers</em> μέχρι <em>στοχαστικές τεχνικές</em> όπως το «Two-Word Check-In» και το «Quiet Impact»— καλλιεργούν κλίμα ασφάλειας και συνεργατικότητας.</p>
+
+        <h4>Διαχείριση Τάξης & Εμπλοκή Συνεργατών</h4>
+        <p>Θα εξασκηθείς σε <strong>σεναριοποιημένες παρεμβάσεις</strong> για «δύσκολες» αλληλεπιδράσεις. Στους/στις μαθητές/τριες, θα εφαρμόσεις προσέγγιση <em>αποκλιμάκωσης</em> («Πρώτα ηρεμία, μετά λύση»), ενώ με γονείς/κηδεμόνες θα αξιοποιήσεις πλαίσια επικοινωνίας για σαφή όρια, κοινό πλάνο και συμμόρφωση με τον <abbr title="Γενικός Κανονισμός για την Προστασία Δεδομένων">GDPR</abbr>.</p>
+
+        <h4>Καινοτόμες Τεχνικές & Ψηφιακή Ενσωμάτωση</h4>
+        <p>Θα αξιοποιήσεις <em>θεατρικές τεχνικές</em> σε μεικτά επίπεδα και θα συνθέσεις ένα πρακτικό «ψηφιακό οπλοστάσιο» ώστε να εξοικονομείς χρόνο προετοιμασίας και να ενισχύεις τη μάθηση.</p>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Teacher Make-Up</h3>
+        <p>Τι συνθέτει/χαρακτηρίζει μια/έναν εξαιρετική/ό εκπαιδευτικό;</p>
+        <p><a class="cta" href="https://domvrosepimorfosi.github.io/teachermakeup/" target="_blank" rel="noopener">Μετάβαση στο Teacher Make-Up ↗</a></p>
+      </div>
+      <div class="card">
+        <h3>Σάρωσε το QR</h3>
+        <p class="muted">Οι επιμορφούμενοι/ες μπορούν να σαρώσουν για άμεση πρόσβαση στο Teacher Make-Up.</p>
+        <a href="https://domvrosepimorfosi.github.io/teachermakeup/" target="_blank" rel="noopener" title="Άνοιγμα Teacher Make-Up">
+          <img class="qr" src="teacher%20make%20up.png" alt="QR για Teacher Make-Up" />
+        </a>
+      </div>
+    </div>
+
+    <details class="card" style="margin-bottom:12px">
+      <summary style="font-size:1.5em;font-weight:700;line-height:1.2;margin-bottom:10px;">Συζήτησε την ανάρτηση</summary>
+      <figure style="margin:0">
+        <img src="Theacher%20Post.png" alt="Εικόνα ανάρτησης τύπου tweet για συζήτηση" style="width:50%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:auto" />
+      </figure>
+    </details>
+
+    <div class="card">
+      <h3>Γρήγορη πλοήγηση</h3>
+      <p>Πήγαινε απευθείας σε ενότητα:</p>
+      <div class="tabs" aria-hidden="true" style="padding:0">
+        <button class="tab" data-color="c1" data-jump="#panel-c1">Κατηγορία 1</button>
+        <button class="tab" data-color="c1" data-jump="#panel-lessonplans">Σχέδια Μαθήματος</button>
+        <button class="tab" data-color="c2" data-jump="#panel-c2">Κατηγορία 2</button>
+        <button class="tab" data-color="c2" data-jump="#panel-resources">Πόροι</button>
+        <button class="tab" data-color="c3" data-jump="#panel-c3">Κατηγορία 3</button>
+        <button class="tab" data-color="c4" data-jump="#panel-c4">Κατηγορία 4</button>
+        <button class="tab" data-color="c5" data-jump="#panel-c5">Κατηγορίες 5 & 6</button>
+        <button class="tab" data-color="c6" data-jump="#panel-c6">Κατηγορία 6</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-c1" class="panel" role="tabpanel" aria-labelledby="tab-c1">
+    <div class="card" style="padding:0">
+      <iframe id="frame-c1" src="category_1.html" title="Κατηγορία 1" style="width:100%;height:1200px;border:0"></iframe>
+      <div class="muted" style="padding:8px 12px">Αν δεν εμφανιστεί η ενότητα, <a href="category_1.html" target="_blank" rel="noopener">άνοιξε την Κατηγορία 1 σε νέα καρτέλα</a>.</div>
+    </div>
+  </section>
+
+  <!-- ΝΕΟ PANEL: Σχέδια Μαθήματος -->
+  <section id="panel-lessonplans" class="panel" role="tabpanel" aria-labelledby="tab-lessonplans">
+    <div class="card">
+      <h3>Σχέδια Μαθήματος</h3>
+      <ul>
+        <li><a href="https://domvrosepimorfosi.github.io/maths-graphs/" target="_blank" rel="noopener">Μαθηματικά Β' Γυμνασίου</a></li>
+        <li><a href="https://domvrosepimorfosi.github.io/arta-bridge/" target="_blank" rel="noopener">Νεοελληνική Λογοτεχνία Γ' Γυμνασίου</a></li>
+        <li><a href="https://domvrosepimorfosi.github.io/helen-lesson-plan/" target="_blank" rel="noopener">Αρχαία Ελληνική Λογοτεχνία Γ' Γυμνασίου</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="panel-c2" class="panel" role="tabpanel" aria-labelledby="tab-c2">
+    <div class="card" style="padding:0">
+      <iframe id="frame-c2" src="category_2.html" title="Κατηγορία 2" style="width:100%;height:1200px;border:0"></iframe>
+      <div class="muted" style="padding:8px 12px">Αν δεν εμφανιστεί η ενότητα, <a href="category_2.html" target="_blank" rel="noopener">άνοιξε την Κατηγορία 2 σε νέα καρτέλα</a>.</div>
+    </div>
+  </section>
+
+  <section id="panel-resources" class="panel" role="tabpanel" aria-labelledby="tab-resources">
+    <div class="card">
+      <h3>Πόροι</h3>
+      <details>
+        <summary>🧑‍🏫 Διαχείριση Τάξης</summary>
+        <ul>
+          <li><a href="https://pa-domvros.github.io/ClassroomChampions/" target="_blank" rel="noopener">Classroom Champions (Beginners)</a></li>
+          <li><a href="https://pa-domvros.github.io/TeacherSpeak/" target="_blank" rel="noopener">TeacherSpeak: Effective Teacher-Student Communication</a></li>
+          <li><a href="https://pa-domvros.github.io/break-boredom/" target="_blank" rel="noopener">Break the Boredom in the Classroom</a></li>
+          <li><a href="https://pa-domvros.github.io/proactive1/" target="_blank" rel="noopener">Proactive Classroom Management Strategies</a></li>
+          <li><a href="https://pa-domvros.github.io/Teacher-SwissKnife/" target="_blank" rel="noopener">Teacher’s Swiss Army Knife</a></li>
+          <li><a href="https://pa-domvros.github.io/ClassX/" target="_blank" rel="noopener">Class X Feed (Bilingual)</a></li>
+          <li><a href="https://pa-domvros.github.io/HotPotato/" target="_blank" rel="noopener">Hot Potato — Student Task Organizer</a></li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>🎯 Εστίαση</summary>
+        <ul>
+          <li><a href="https://pdomvros.github.io/bullying-eng/" target="_blank" rel="noopener">Bullying</a></li>
+          <li><a href="https://pa-domvros.github.io/abusive-language//" target="_blank" rel="noopener">Abusive Language</a></li>
+          <li><a href="https://pa-domvros.github.io/WhatWhyHow/" target="_blank" rel="noopener">What? Why? How? — The Reflection Game</a></li>
+          <li><a href="https://pa-domvros.github.io/Control51/" target="_blank" rel="noopener">Things I Can Control</a></li>
+          <li><a href="https://pa-domvros.github.io/NameIt/" target="_blank" rel="noopener">Name It, Don’t Flame It</a></li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <section id="panel-c3" class="panel" role="tabpanel" aria-labelledby="tab-c3">
+    <div class="card" style="padding:0">
+      <iframe id="frame-c3" src="category_3.html" title="Κατηγορία 3" style="width:100%;height:1200px;border:0"></iframe>
+      <div class="muted" style="padding:8px 12px">Αν δεν εμφανιστεί η ενότητα, <a href="category_3.html" target="_blank" rel="noopener">άνοιξε την Κατηγορία 3 σε νέα καρτέλα</a>.</div>
+    </div>
+  </section>
+
+  <section id="panel-c4" class="panel" role="tabpanel" aria-labelledby="tab-c4">
+    <div class="card" style="padding:0">
+      <iframe id="frame-c4" src="category_4.html" title="Κατηγορία 4" style="width:100%;height:1200px;border:0"></iframe>
+      <div class="muted" style="padding:8px 12px">Αν δεν εμφανιστεί η ενότητα, <a href="category_4.html" target="_blank" rel="noopener">άνοιξε την Κατηγορία 4 σε νέα καρτέλα</a>.</div>
+    </div>
+  </section>
+
+  <section id="panel-c5" class="panel" role="tabpanel" aria-labelledby="tab-c5">
+    <div class="card" style="padding:0">
+      <iframe id="frame-c5" src="categories_5_6.html" title="Κατηγορίες 5 &amp; 6" style="width:100%;height:1200px;border:0"></iframe>
+      <div class="muted" style="padding:8px 12px">Αν δεν εμφανιστεί η ενότητα, <a href="categories_5_6.html" target="_blank" rel="noopener">άνοιξε τις Κατηγορίες 5 &amp; 6 σε νέα καρτέλα</a>.</div>
+    </div>
+  </section>
+</main>
+
+<footer>✨✍️ Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικής-Θεατρολόγος, All Rights Reserved ✍️✨</footer>
+
+<script>
+  // Theme toggle with persistence
+  const themeToggle=document.getElementById('themeToggle');
+  const themeLabel=document.getElementById('themeLabel');
+  const savedTheme=localStorage.getItem('index_theme')||'dark';
+  if(savedTheme==='light'){ document.body.classList.add('light'); themeLabel.textContent='Light mode'; }
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    const isLight=document.body.classList.contains('light');
+    localStorage.setItem('index_theme', isLight?'light':'dark');
+    themeLabel.textContent=isLight?'Light mode':'Dark mode';
+  });
+
+  // Tabs
+  const tabs=[...document.querySelectorAll('.tab[role="tab"]')];
+  const panels=[...document.querySelectorAll('.panel')];
+  function activate(id){
+    tabs.forEach(t=>t.setAttribute('aria-selected', t.id===`tab-${id}`?'true':'false'));
+    panels.forEach(p=>p.classList.toggle('active', p.id===`panel-${id}`));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>activate(t.id.replace('tab-',''))));
+  document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('click',()=>activate(btn.getAttribute('data-jump').replace('#panel-',''))));
+
+  // Print current tab (print iframe if present)
+  document.getElementById('printCurrent').addEventListener('click',()=>{
+    const active=document.querySelector('.panel.active');
+    const iframe=active?active.querySelector('iframe'):null;
+    if(iframe && iframe.contentWindow){
+      try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); return; }catch(e){}
+    }
+    window.print();
+  });
+</script>
+</body>
+</html>
