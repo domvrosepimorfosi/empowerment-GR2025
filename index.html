@@ -42,7 +42,7 @@
   nav.tabs{max-width:1200px;margin:16px auto 0;padding:0 12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   .tab{
     appearance:none;border:1px solid var(--border);background:var(--chip);color:var(--ink);
-    padding:12px 16px;border-radius:999px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:44px;line-height:1;outline:none
+    padding:12px 16px;border-radius:999px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:44px;line-height:1;outline:none; text-decoration: none;
   }
   .tab[aria-selected="true"]{background:var(--chipActive);border-color:var(--accent)}
   .tab[data-color="home"][aria-selected="true"]{border-color:#9CA3AF}
@@ -104,6 +104,7 @@
   <button class="tab" data-color="c2" role="tab" id="tab-c2" aria-controls="panel-c2" aria-selected="false">Κατηγορία 2</button>
   <button class="tab" data-color="c2" role="tab" id="tab-resources" aria-controls="panel-resources" aria-selected="false">Πόροι</button>
   <button class="tab" data-color="c3" role="tab" id="tab-c3" aria-controls="panel-c3" aria-selected="false">Κατηγορία 3</button>
+  <a href="https://domvrosepimorfosi.github.io/boundaries/" class="tab" target="_blank" rel="noopener">Θέτοντας Όρια</a>
   <button class="tab" data-color="c4" role="tab" id="tab-c4" aria-controls="panel-c4" aria-selected="false">Κατηγορία 4</button>
   <button class="tab" data-color="c5" role="tab" id="tab-c5" aria-controls="panel-c5" aria-selected="false">Κατηγορίες 5 &amp; 6</button>
 </nav>
@@ -157,6 +158,7 @@
         <button class="tab" data-color="c2" data-jump="#panel-c2">Κατηγορία 2</button>
         <button class="tab" data-color="c2" data-jump="#panel-resources">Πόροι</button>
         <button class="tab" data-color="c3" data-jump="#panel-c3">Κατηγορία 3</button>
+        <a href="https://domvrosepimorfosi.github.io/boundaries/" class="tab" target="_blank" rel="noopener">Θέτοντας Όρια</a>
         <button class="tab" data-color="c4" data-jump="#panel-c4">Κατηγορία 4</button>
         <button class="tab" data-color="c5" data-jump="#panel-c5">Κατηγορίες 5 & 6</button>
         <button class="tab" data-color="c6" data-jump="#panel-c6">Κατηγορία 6</button>
